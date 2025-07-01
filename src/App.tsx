@@ -1,5 +1,3 @@
-import React from "react";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BudgetsPage from "./pages/BudgetsPage";
 import OverviewPage from "./pages/OverviewPage";
@@ -20,5 +18,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;

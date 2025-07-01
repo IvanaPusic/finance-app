@@ -1,0 +1,82 @@
+@use "./colors" as *;
+
+@mixin flex-center($gap) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin flex-between($gap) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin flex-start($gap) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: $gap;
+  //   flex-wrap: wrap;
+}
+
+@mixin flex-around($gap) {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin flex-evenly($gap) {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin flex-col($gap) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: $gap;
+}
+
+@mixin font($size, $lineHeight, $letterSpacing, $color: $dark, $ff, $fw: 400) {
+  font-size: $size;
+  line-height: $lineHeight;
+  letter-spacing: $letterSpacing;
+  color: $color;
+  font-family: $ff;
+  font-weight: $fw;
+}
+
+@mixin button($color, $bg, $radius, $border, $padding) {
+  color: $color;
+  background-color: $bg;
+  border-radius: $radius;
+  border: $border;
+  padding: $padding;
+}
+
+@mixin button-reset {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@mixin breakpoint($point) {
+  @if $point == medium {
+    @media (min-width: 700px) {
+      @content;
+    }
+  }
+  @else if $point == large {
+    @media (min-width: 900px) {
+      @content;
+    }
+  }
+}
