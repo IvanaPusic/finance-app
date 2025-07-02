@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import illustration from "/Users/karlo.markovic/Desktop/Personal_finance_project/finance-app/src/assets/images/illustration.svg";
+import illustration from "../assets/images/illustration.svg";
 
 const LoginPage: React.FC = () => {
   const { logIn } = useAuth();
