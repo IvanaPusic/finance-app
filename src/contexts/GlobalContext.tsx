@@ -1,4 +1,4 @@
-import React, { useContext, useState, createContext } from "react";
+import React, { useContext, useState, createContext, useEffect } from "react";
 import {
   type Budgets,
   type GlobalContextValue,
@@ -23,6 +23,20 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [budgets, setBudgets] = useState<Budgets[]>([]);
   const [pots, setPots] = useState<Pots[]>([]);
 
+  const getData = async () => {
+    try {
+      const response = await fetch("./data.json");
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
+  
   return (
     <GlobalContext.Provider
       value={{
