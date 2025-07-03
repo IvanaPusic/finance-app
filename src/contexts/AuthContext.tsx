@@ -1,11 +1,6 @@
 // src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState } from "react";
-
-interface AuthContextValue {
-  isLoggedIn: boolean;
-  logIn: () => void;
-  logOut: () => void;
-}
+import { type AuthContextValue } from "../types";
 
 // Create context with default `undefined` for safety
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
