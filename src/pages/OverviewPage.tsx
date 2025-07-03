@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
-import AuthDebug from "../components/AuthDebug";
+import React from "react";
+// import AuthDebug from "../components/AuthDebug";
+import "../scss/styles.scss";
 
 const OverviewPage: React.FC = () => {
   return (
-    <Fragment>
+    <main className="">
       <h1>Overview</h1>
-      <AuthDebug />
-    </Fragment>
+    </main>
   );
 };
 
