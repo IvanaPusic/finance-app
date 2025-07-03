@@ -12,6 +12,10 @@ const Login: React.FC = () => {
     navigate("/"); // ✅ redirect after login
   };
 
+  const handleRedirect = () => {
+    navigate("/signup");
+  };
+
   return (
     <div className="login__form-container">
       <h1 className="login__heading">Login</h1>
@@ -37,7 +41,7 @@ const Login: React.FC = () => {
       </form>
       <div className="login__text-container">
         <span className="login__text">Need to create an account?</span>
-        <a className="login__link" href="#">
+        <a onClick={handleRedirect} className="login__link" href="#">
           Sign Up
         </a>
       </div>

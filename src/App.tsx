@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./components/PrivateRoute";
 import PageWrapper from "./components/PageWrapper";
 import NotFoundPage from "./pages/NotFoundPage";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   return (
@@ -15,12 +16,13 @@ function App() {
       <PageWrapper>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<OverviewPage />} />
             <Route path="/transactions" element={<TransactionsPage />} />
             <Route path="/budgets" element={<BudgetsPage />} />
             <Route path="/pots" element={<PotsPage />} />
-            <Route path="/recuring-bills" element={<RecurringBillsPage />} />
+            <Route path="/recurring-bills" element={<RecurringBillsPage />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
