@@ -3,7 +3,6 @@ import { useAuth } from "../contexts/AuthContext";
 
 const AuthDebug: React.FC = () => {
   const { isLoggedIn, logIn, logOut } = useAuth();
-  console.log(isLoggedIn);
 
   return (
     <div style={{ padding: "1rem", border: "1px solid gray" }}>

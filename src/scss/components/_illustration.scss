@@ -1,0 +1,29 @@
+@use "../abstracts" as *;
+
+.illustration {
+  position: relative;
+  border-radius: 10px;
+  &__image {
+    border-radius: 10px;
+  }
+  &__logo {
+    width: 100px;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+  }
+  &__heading {
+    font-size: 1.8rem;
+  }
+  &__text-container {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    color: white;
+    width: 25rem;
+    font-family: $ff-public;
+  }
+  &__paragraph {
+    margin-top: 1rem;
+  }
+}

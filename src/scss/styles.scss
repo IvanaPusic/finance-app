@@ -1,3 +1,4 @@
 @use "./base";
-@use "./abstracts/index";
-@use "./components"
+@use "./abstracts";
+@use "./components";
+@use "./layout";
