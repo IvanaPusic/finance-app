@@ -3,7 +3,7 @@ import "../scss/styles.scss";
 
 type Props = {
     title: string,
-    value: number,
+    value: number | string,
     color?: string;
 }
 
