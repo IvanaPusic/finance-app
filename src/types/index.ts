@@ -52,4 +52,7 @@ export interface GlobalContextValue {
 
   pots: Pot[];
   setPots: (pots: Pot[]) => void;
+
+  isActive: boolean;
+  setIsActive: (isActive: boolean) => void;
 }

@@ -16,6 +16,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   });
   const [budgets, setBudgets] = useState<Budgets[]>([]);
   const [pots, setPots] = useState<Pot[]>([]);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   const getData = async () => {
     try {
@@ -50,7 +51,9 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         budgets,
         setBudgets,
         pots,
-        setPots
+        setPots,
+        isActive,
+        setIsActive,
       }}
     >
       {children}

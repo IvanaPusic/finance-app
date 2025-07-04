@@ -7,10 +7,10 @@ const PrivateRoute: React.FC = () => {
   const { isLoggedIn } = useAuth();
   
   if(isLoggedIn) {
-    return <>
+    return <div className="outlet-layout">
       <Outlet/>
       <Navigation/>
-    </>
+    </div>
   } 
   return <Navigate to="/login" replace />
 };

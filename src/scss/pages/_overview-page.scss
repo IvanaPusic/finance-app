@@ -1,5 +1,6 @@
-@use "../abstracts/index" as *;
+@use "../abstracts/colors" as *;
+@use "../abstracts/spacings" as *;
 
 .overview {
-  background-color: $clr-beige-100;
+    padding: map-get($spacings, "400");
 }

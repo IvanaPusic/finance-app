@@ -1,0 +1,71 @@
+@use "../abstracts/colors" as *;
+@use "../abstracts/fonts" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/spacings" as *;
+
+.header {
+  background-color: $clr-grey-900;
+  height: auto;
+  padding-top: map-get($spacings, "500");
+  padding-right: map-get($spacings, "300");
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+
+  &__logo {
+    padding-left: map-get($spacings, "400");
+    width: 121.45px;
+    height: 21.76px;
+  }
+
+  &__links-list {
+    @include flex-start(map-get($spacings, "50"));
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 4rem;
+
+    &-item {
+      padding-inline: map-get($spacings, "400");
+      padding-top: map-get($spacings, "200");
+      padding-bottom: map-get($spacings, "200");
+      transition: color 500ms ease;
+      width: 276px;
+      border-left: 5px solid transparent;
+
+      &:hover {
+        background-color: $clr-beige-100;
+        border-left: 5px solid $green;
+        border-top-right-radius: map-get($spacings, "200");
+        border-bottom-right-radius: map-get($spacings, "200");
+
+        .header__links-list-link span {
+          color: $clr-grey-900;
+        }
+
+        .icon--default {
+          display: none;
+        }
+
+        .icon--hover {
+          display: inline;
+        }
+      }
+    }
+
+    &-link {
+      @include flex-start(map-get($spacings, "200"));
+      text-decoration: none;
+
+      .icon--default {
+        display: inline;
+      }
+
+      .icon--hover {
+        display: none;
+      }
+
+      span {
+        @include font($fs-base, 150%, normal, $clr-grey-300, $ff-public, 700);
+      }
+    }
+  }
+}
