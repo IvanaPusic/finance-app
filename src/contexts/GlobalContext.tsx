@@ -1,11 +1,5 @@
 import React, { useContext, useState, createContext, useEffect } from "react";
-import {
-  type Budgets,
-  type GlobalContextValue,
-  type Transactions,
-  type Balance,
-  type Pots
-} from "../types";
+import type { Budgets, GlobalContextValue, Transaction, Balance, Pot } from "../types";
 
 const GlobalContext = createContext<GlobalContextValue | null>(null);
 
@@ -14,20 +8,25 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [transactions, setTransactions] = useState<Transactions[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState<Balance>({
     current: 0,
     income: 0,
     expenses: 0
   });
   const [budgets, setBudgets] = useState<Budgets[]>([]);
-  const [pots, setPots] = useState<Pots[]>([]);
+  const [pots, setPots] = useState<Pot[]>([]);
 
   const getData = async () => {
     try {
       const response = await fetch("./data.json");
       const data = await response.json();
       console.log(data);
+      setBalance(data.balance);
+      setTransactions(data.transactions);
+      setBudgets(data.budgets);
+      setPots(data.pots);
+      setTransactions(data.transactions)
     } catch (error) {
       console.error(error)
     }
@@ -63,7 +62,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useGlobal = (): GlobalContextValue => {
   const context = useContext(GlobalContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error("useGlobal must be within Global Context");
   }
   return context;
 };

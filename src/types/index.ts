@@ -4,7 +4,7 @@ export interface AuthContextValue {
   logOut: () => void;
 }
 
-export type Transactions = {
+export type Transaction = {
   avatar?: string;
   name: string;
   category: string;
@@ -19,11 +19,11 @@ export type Budgets = {
   theme: number;
 }
 
-export type Pots = {
+export type Pot = {
   name: string;
   target: number;
   total: number;
-  theme: string
+  theme: string;
 }
 
 export type Balance = {
@@ -44,12 +44,12 @@ export interface GlobalContextValue {
   balance: Balance;
   setBalance: (balance: Balance) => void;
 
-  transactions: Transactions[];
-  setTransactions: (tx: Transactions[]) => void;
+  transactions: Transaction[];
+  setTransactions: (tx: Transaction[]) => void;
 
   budgets: Budgets[];
   setBudgets: (budgets: Budgets[]) => void;
 
-  pots: Pots[];
-  setPots: (pots: Pots[]) => void;
+  pots: Pot[];
+  setPots: (pots: Pot[]) => void;
 }
