@@ -1,10 +1,16 @@
 import React, { useContext, useState, createContext, useEffect } from "react";
-import type { Budgets, GlobalContextValue, Transaction, Balance, Pot } from "../types";
+import type {
+  Budget,
+  GlobalContextValue,
+  Transaction,
+  Balance,
+  Pot,
+} from "../types";
 
 const GlobalContext = createContext<GlobalContextValue | null>(null);
 
 export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
-  children
+  children,
 }) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -12,9 +18,9 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [balance, setBalance] = useState<Balance>({
     current: 0,
     income: 0,
-    expenses: 0
+    expenses: 0,
   });
-  const [budgets, setBudgets] = useState<Budgets[]>([]);
+  const [budgets, setBudgets] = useState<Budget[]>([]);
   const [pots, setPots] = useState<Pot[]>([]);
   const [isActive, setIsActive] = useState<boolean>(false);
 
@@ -27,16 +33,17 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       setTransactions(data.transactions);
       setBudgets(data.budgets);
       setPots(data.pots);
-      setTransactions(data.transactions)
+      setTransactions(data.transactions);
+      setBudgets(data.budgets);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
     getData();
-  }, [])
-  
+  }, []);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -60,7 +67,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     </GlobalContext.Provider>
   );
 };
-
 
 export const useGlobal = (): GlobalContextValue => {
   const context = useContext(GlobalContext);

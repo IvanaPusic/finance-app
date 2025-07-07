@@ -1,0 +1,28 @@
+@use "../abstracts/colors" as *;
+@use "../abstracts/spacings" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.stat-card {
+  padding: map-get($spacings, "300");
+  background-color: $white;
+  flex: 1;
+  border-radius: 0.75rem;
+  &:first-of-type {
+    background-color: $clr-grey-900;
+
+    .stat-card__title,
+    .stat-card__value {
+      color: $white;
+    }
+  }
+
+  &__title {
+    padding-bottom: 0.746rem;
+    @include font(0.875rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+  }
+
+  &__value {
+    @include font(2rem, 120%, normal, $clr-grey-900, $ff-public, 700);
+  }
+}
