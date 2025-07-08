@@ -7,7 +7,7 @@
   background-color: $white;
   padding: 2rem;
   border-radius: 0.75rem;
-
+  grid-area: pots;
   &__container {
     @include flex-between(0);
     padding-bottom: 1.236rem;
