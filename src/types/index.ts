@@ -11,26 +11,26 @@ export type Transaction = {
   date: Date;
   amount: number;
   recurring: boolean;
-}
+};
 
-export type Budgets = {
+export type Budget = {
   category: string;
   maximum: number;
   theme: number;
-}
+};
 
 export type Pot = {
   name: string;
   target: number;
   total: number;
   theme: string;
-}
+};
 
 export type Balance = {
   current: number;
   income: number;
   expenses: number;
-}
+};
 
 export interface GlobalContextValue {
   email: string;
@@ -47,8 +47,8 @@ export interface GlobalContextValue {
   transactions: Transaction[];
   setTransactions: (tx: Transaction[]) => void;
 
-  budgets: Budgets[];
-  setBudgets: (budgets: Budgets[]) => void;
+  budgets: Budget[];
+  setBudgets: (budgets: Budget[]) => void;
 
   pots: Pot[];
   setPots: (pots: Pot[]) => void;

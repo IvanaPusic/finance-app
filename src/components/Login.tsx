@@ -1,15 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { firebaseLogIn } from "../firebase/auth";
 import type React from "react";
+import { useRef } from "react";
+import { getUserData } from "../firebase/dataManipulation";
 
 const Login: React.FC = () => {
   const { logIn } = useAuth();
   const navigate = useNavigate();
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    logIn();
-    navigate("/"); // ✅ redirect after login
+    try {
+      if (emailRef.current && passwordRef.current) {
+        const emailValue = emailRef.current.value;
+        const passwordValue = passwordRef.current.value;
+
+        const user = await firebaseLogIn(emailValue, passwordValue);
+        console.log(user);
+        logIn();
+        getUserData(user.uid);
+        navigate("/"); // ✅ redirect after login
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleRedirect = () => {
@@ -27,6 +44,7 @@ const Login: React.FC = () => {
           type="email"
           name="email"
           id=""
+          ref={emailRef}
         />
         <label htmlFor="password">Password</label>
         <input
@@ -34,6 +52,7 @@ const Login: React.FC = () => {
           type="password"
           name="password"
           id="password"
+          ref={passwordRef}
         />
         <button className="login__button" type="submit">
           Login
