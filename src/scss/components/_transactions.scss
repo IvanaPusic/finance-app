@@ -1,0 +1,52 @@
+@use "../abstracts/colors" as *;
+@use "../abstracts/spacings" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.transactions {
+  background-color: $white;
+  margin-top: 1.489rem;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  &__container {
+    @include flex-between(0);
+    &-title {
+      @include font(1.25rem, 120%, normal, $clr-grey-900, $ff-public, 700);
+    }
+    &-link {
+      text-decoration: none;
+      @include flex-center(0.75rem);
+      span {
+        @include font(0.875rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+      }
+    }
+  }
+  &__content {
+    padding-top: 1.986rem;
+  }
+  &__transaction {
+    @include flex-between(0);
+    border-bottom: 2px solid $clr-grey-100;
+    padding-bottom: 1.25rem;
+    &:not(:first-child) {
+      padding-top: 1.25rem;
+    }
+    &-user {
+      @include flex-center(1rem);
+      &-name {
+        @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 700);
+      }
+    }
+    &-info-value {
+      @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 700);
+      padding-bottom: 0.499rem;
+    }
+    &-info-date {
+      @include font(0.75rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+    }
+    &-info-value-positive {
+      @include font(0.875rem, 150%, normal, $green, $ff-public, 700);
+      padding-bottom: 0.499rem;
+    }
+  }
+}

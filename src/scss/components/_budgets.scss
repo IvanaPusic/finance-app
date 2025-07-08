@@ -7,7 +7,7 @@
   margin-top: 1.489rem;
   padding: 2rem;
   background-color: $white;
-
+  border-radius: 0.75rem;
   &__container {
     @include flex-between(0);
     &-title {
@@ -35,9 +35,9 @@
       @include font(0.875rem, 150%, normal, $clr-grey-500, $ff-public, 700);
       display: block;
     }
-    @include border-color(".budgets__category");
   }
   &__category-title {
     @include font(0.75rem, 150%, normal, $clr-grey-500, $ff-public, 400);
   }
+  @include border-color(".budgets__category");
 }

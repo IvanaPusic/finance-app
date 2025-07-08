@@ -47,7 +47,7 @@ const Budgets = ({ budgets }: Props) => {
             const { category, maximum } = budget;
 
             return (
-              <li key={category} className="bugets__category">
+              <li key={category} className="budgets__category">
                 <span className="budgets__category-title">{category}</span>
                 <span className="budgets__category-value">${maximum}</span>
               </li>
