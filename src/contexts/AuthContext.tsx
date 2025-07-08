@@ -9,12 +9,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [currentUid, setCurrentUid] = useState<string>("");
 
-  const logIn = () => setIsLoggedIn(true);
+  const logIn = (uid: string) => {
+    setIsLoggedIn(true);
+    setCurrentUid(uid);
+  };
   const logOut = () => setIsLoggedIn(false);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, logIn, logOut }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, logIn, logOut, currentUid, setCurrentUid }}
+    >
       {children}
     </AuthContext.Provider>
   );

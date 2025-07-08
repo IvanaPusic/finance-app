@@ -12,6 +12,7 @@ const Transactions = ({ transactions }: Props) => {
     month: "short",
     year: "numeric",
   };
+
   return (
     <section className="transactions">
       <div className="transactions__container">
@@ -24,7 +25,7 @@ const Transactions = ({ transactions }: Props) => {
       <ul className="transactions__content">
         {transactions.slice(0, 5).map((transaction: Transaction) => {
           const transactionsDate = new Date(transaction.date);
-          const formatedDate = transactionsDate.toLocaleDateString(
+          const formattedDate = transactionsDate.toLocaleDateString(
             "en-GB",
             dateOptions
           );
@@ -42,8 +43,8 @@ const Transactions = ({ transactions }: Props) => {
                 <p
                   className={
                     transaction.amount > 0
-                      ? `transactions__transaction-info-value-positive `
-                      : `transactions__transaction-info-value`
+                      ? "transactions__transaction-info-value-positive"
+                      : "transactions__transaction-info-value"
                   }
                 >
                   {transaction.amount > 0
@@ -51,7 +52,7 @@ const Transactions = ({ transactions }: Props) => {
                     : `$${transaction.amount}`}
                 </p>
                 <p className="transactions__transaction-info-date">
-                  {formatedDate}
+                  {formattedDate}
                 </p>
               </div>
             </li>

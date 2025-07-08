@@ -1,7 +1,9 @@
 export interface AuthContextValue {
   isLoggedIn: boolean;
-  logIn: () => void;
+  logIn: (uid: string) => void;
   logOut: () => void;
+  currentUid: string;
+  setCurrentUid: (uid: string) => void;
 }
 
 export type Transaction = {
