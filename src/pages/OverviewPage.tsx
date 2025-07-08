@@ -1,9 +1,8 @@
 import React from "react";
 import "../scss/styles.scss";
 import { useGlobal } from "../contexts/GlobalContext";
-import { Budgets, StatCard } from "../components";
+import { Budgets, StatCard, RecurringBills, Transactions } from "../components";
 import Pots from "../components/Pots";
-import { Transactions } from "../components";
 
 const OverviewPage: React.FC = () => {
   const { balance, pots, transactions, budgets } = useGlobal();
@@ -22,6 +21,7 @@ const OverviewPage: React.FC = () => {
         <Pots savingsValue={totalSavingsValue} pots={pots} />
         <Budgets budgets={budgets} />
         <Transactions transactions={transactions} />
+        <RecurringBills />
       </div>
     </main>
   );

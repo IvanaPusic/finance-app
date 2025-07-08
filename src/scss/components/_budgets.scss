@@ -4,7 +4,8 @@
 @use "../abstracts/spacings" as *;
 
 .budgets {
-  margin-top: 1.489rem;
+  // margin-top: 1.489rem;
+  grid-area: budgets;
   padding: 2rem;
   background-color: $white;
   border-radius: 0.75rem;

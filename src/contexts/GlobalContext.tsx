@@ -28,7 +28,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const response = await fetch("./data.json");
       const data = await response.json();
-      console.log(data);
+      console.log("Data", data);
       setBalance(data.balance);
       setTransactions(data.transactions);
       setBudgets(data.budgets);

@@ -7,7 +7,6 @@ type Props = {
 };
 
 const Transactions = ({ transactions }: Props) => {
-  console.info("Transactions: ", transactions);
   const dateOptions: Intl.DateTimeFormatOptions = {
     day: "2-digit",
     month: "short",
