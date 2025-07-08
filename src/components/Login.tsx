@@ -20,7 +20,7 @@ const Login: React.FC = () => {
 
         const user = await firebaseLogIn(emailValue, passwordValue);
         console.log(user);
-        logIn();
+        logIn(user.uid);
         getUserData(user.uid);
         navigate("/"); // ✅ redirect after login
       }

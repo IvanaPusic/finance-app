@@ -3,15 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useRef } from "react";
 import { firebaseRegister } from "../firebase/auth";
-import { auth } from "../firebase/config";
-import { onAuthStateChanged } from "firebase/auth";
-import type { User } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase/config";
-import type { Transaction, Budget, Pot, Balance } from "../types";
 
 const Signup: React.FC = () => {
-  const { logIn } = useAuth();
+  const { logIn, setCurrentUid } = useAuth();
   const navigate = useNavigate();
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -30,7 +24,7 @@ const Signup: React.FC = () => {
           passwordValue,
           nameValue
         );
-        logIn();
+        logIn(user.uid);
         navigate("/"); // ✅ redirect after login
         console.log(user);
       }
