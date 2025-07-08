@@ -77,6 +77,21 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   // useEffect(() => {
   //   getData();
   // }, []);
+  const getData = async () => {
+    try {
+      const response = await fetch("./data.json");
+      const data = await response.json();
+      console.log("Data", data);
+      setBalance(data.balance);
+      setTransactions(data.transactions);
+      setBudgets(data.budgets);
+      setPots(data.pots);
+      setTransactions(data.transactions);
+      setBudgets(data.budgets);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     if (!currentUid) return;
