@@ -34,6 +34,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       setBudgets(data.budgets);
       setPots(data.pots);
       setTransactions(data.transactions);
+      setBudgets(data.budgets);
     } catch (error) {
       console.error(error);
     }
