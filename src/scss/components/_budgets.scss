@@ -4,7 +4,6 @@
 @use "../abstracts/spacings" as *;
 
 .budgets {
-  // margin-top: 1.489rem;
   grid-area: budgets;
   padding: 2rem;
   background-color: $white;
@@ -30,7 +29,7 @@
   }
   &__category {
     padding-left: 1rem;
-    @include flex-col(0.249rem); // &-title {
+    @include flex-col(0.249rem);
 
     &-value {
       @include font(0.875rem, 150%, normal, $clr-grey-500, $ff-public, 700);

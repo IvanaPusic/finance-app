@@ -12,6 +12,11 @@
   }
   &__balance {
     @include flex-start(1.497rem);
+    // @include breakpoint(small) {
+    //   flex-direction: column;
+    //   justify-content: center;
+    //   align-items: center;
+    // }
   }
 
   &__container {
@@ -25,4 +30,11 @@
       "transactions transactions bills"
       "transactions transactions bills";
   }
+
+  // @media screen and (small) {
+  //   grid-template-areas: none;
+  //   // "transactions transactions transactions"
+  //   // "budgets budgets budgets"
+  //   // "bills bills bills";
+  // }
 }

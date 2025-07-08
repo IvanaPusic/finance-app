@@ -11,7 +11,6 @@
   &__container {
     @include flex-between(0);
     padding-bottom: 1.236rem;
-
     &-title {
       @include font(1.25rem, 120%, normal, $clr-grey-900, $ff-public, 700);
     }

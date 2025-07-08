@@ -32,6 +32,12 @@ export type Balance = {
   expenses: number;
 };
 
+export type Sort = {
+  id: number;
+  value: string;
+  title: string;
+};
+
 export interface GlobalContextValue {
   email: string;
   setEmail: (email: string) => void;
