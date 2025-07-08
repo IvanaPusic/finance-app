@@ -1,6 +1,14 @@
+@use "../abstracts/colors" as *;
+@use "../abstracts/spacings" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
 .outlet-layout {
-    display: flex;
-    flex-direction: row-reverse;
-    min-height: 100vh;
-    justify-content: flex-end;
+  display: flex;
+  flex-direction: row-reverse;
+  min-height: 100vh;
+  justify-content: flex-end;
+  //   @include breakpoint(small) {
+  //     position: relative;
+  //   }
 }

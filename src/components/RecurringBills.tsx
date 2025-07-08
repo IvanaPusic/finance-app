@@ -1,4 +1,3 @@
-import React from "react";
 // import { useGlobal } from "../contexts/GlobalContext";
 // import type { Transaction } from "../types";
 import { Link } from "react-router-dom";
