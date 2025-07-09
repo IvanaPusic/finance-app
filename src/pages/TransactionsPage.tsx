@@ -131,7 +131,7 @@ const TransactionsPage: React.FC = () => {
             <span>Prev</span>
           </button>
           <div className="transactions-page__pagination-list">
-            {/* Dynamically add numbers based on how many array items there are */}
+            {/* Dynamically add numbers based on how many array items are there */}
             <button className="transactions-page__pagination-list-btn">
               1
             </button>
