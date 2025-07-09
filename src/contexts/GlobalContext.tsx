@@ -58,30 +58,11 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   //   }
   // }, [currentUid]);
 
-  // const getData = async () => {
-  //   try {
-  //     const response = await fetch("./data.json");
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setBalance(data.balance);
-  //     setTransactions(data.transactions);
-  //     setBudgets(data.budgets);
-  //     setPots(data.pots);
-  //     setTransactions(data.transactions);
-  //     setBudgets(data.budgets);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
   const getData = async () => {
     try {
       const response = await fetch("./data.json");
       const data = await response.json();
-      console.log("Data", data);
+      console.log(data);
       setBalance(data.balance);
       setTransactions(data.transactions);
       setBudgets(data.budgets);
@@ -94,44 +75,63 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   useEffect(() => {
-    if (!currentUid) return;
+    getData();
+  }, []);
+  // const getData = async () => {
+  //   try {
+  //     const response = await fetch("./data.json");
+  //     const data = await response.json();
+  //     console.log("Data", data);
+  //     setBalance(data.balance);
+  //     setTransactions(data.transactions);
+  //     setBudgets(data.budgets);
+  //     setPots(data.pots);
+  //     setTransactions(data.transactions);
+  //     setBudgets(data.budgets);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-    const userDocRef = doc(db, "users", currentUid);
+  // useEffect(() => {
+  //   if (!currentUid) return;
 
-    const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
-      if (docSnapshot.exists()) {
-        const data = docSnapshot.data();
-        setTransactions(data.transactions || []);
-        setBalance(data.balance || { current: 0, income: 0, expenses: 0 });
-        setBudgets(data.budgets || []);
-        setPots(data.pots || []);
-        setName(data.name || "");
-        setEmail(data.email || "");
-      }
-    });
+  //   const userDocRef = doc(db, "users", currentUid);
 
-    return () => unsubscribe(); // 🔁 Clean up on unmount
-  }, [currentUid]);
+  //   const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
+  //     if (docSnapshot.exists()) {
+  //       const data = docSnapshot.data();
+  //       setTransactions(data.transactions || []);
+  //       setBalance(data.balance || { current: 0, income: 0, expenses: 0 });
+  //       setBudgets(data.budgets || []);
+  //       setPots(data.pots || []);
+  //       setName(data.name || "");
+  //       setEmail(data.email || "");
+  //     }
+  //   });
+
+  //   return () => unsubscribe(); // 🔁 Clean up on unmount
+  // }, [currentUid]);
+
+  const stateValues = {
+    name,
+    setName,
+    email,
+    setEmail,
+    balance,
+    setBalance,
+    transactions,
+    setTransactions,
+    budgets,
+    setBudgets,
+    pots,
+    setPots,
+    isActive,
+    setIsActive,
+  };
 
   return (
-    <GlobalContext.Provider
-      value={{
-        name,
-        setName,
-        email,
-        setEmail,
-        balance,
-        setBalance,
-        transactions,
-        setTransactions,
-        budgets,
-        setBudgets,
-        pots,
-        setPots,
-        isActive,
-        setIsActive,
-      }}
-    >
+    <GlobalContext.Provider value={{ ...stateValues }}>
       {children}
     </GlobalContext.Provider>
   );

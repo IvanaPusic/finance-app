@@ -44,7 +44,14 @@
   gap: $gap;
 }
 
-@mixin font($size, $lineHeight, $letterSpacing, $color: $dark, $ff, $fw: 400) {
+@mixin font(
+  $size,
+  $lineHeight,
+  $letterSpacing,
+  $color: $clr-grey-900,
+  $ff,
+  $fw: 400
+) {
   font-size: $size;
   line-height: $lineHeight;
   letter-spacing: $letterSpacing;

@@ -1,0 +1,198 @@
+@use "../abstracts/colors" as *;
+@use "../abstracts/fonts" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/spacings" as *;
+
+.transactions-page {
+  padding: 2rem;
+  width: 100%;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $clr-grey-900;
+    margin-bottom: 1.5rem;
+  }
+
+  &__content {
+    background-color: $white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__input-container {
+    position: relative;
+
+    input {
+      width: 100%;
+      padding: 0.75rem 2.5rem 0.75rem 1rem;
+      border: 1px solid $clr-grey-500;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      background-color: $white;
+      color: $clr-grey-900;
+
+      &::placeholder {
+        color: $clr-grey-500;
+      }
+    }
+
+    &-icon {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__filter-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    select {
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      border: 1px solid $clr-grey-500;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      appearance: none;
+      background-color: $white;
+      color: $clr-grey-900;
+    }
+
+    label {
+      font-size: 0.75rem;
+      margin-bottom: 0.25rem;
+      margin-right: 1rem;
+      color: $clr-grey-500;
+    }
+  }
+
+  &__sort-by,
+  &__categories {
+    position: relative;
+
+    img {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      pointer-events: none;
+    }
+  }
+
+  &__list {
+    margin-top: 2rem;
+    width: 100%;
+
+    &-header,
+    &-row {
+      display: grid;
+      grid-template-columns: 1.8fr 1.5fr 2fr 1fr;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid $clr-grey-100;
+    }
+
+    &-header {
+      @include font(0.75rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+    }
+
+    &-header-info {
+      @include font(0.75rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+    }
+
+    &-row {
+      font-size: 0.875rem;
+      color: $clr-grey-900;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    span {
+      @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 700);
+    }
+  }
+
+  &__amount--positive {
+    color: $green;
+    font-weight: 600;
+  }
+
+  &__amount--negative {
+    color: $red;
+    font-weight: 600;
+  }
+
+  &__pagination {
+    padding-top: 1.5rem;
+    @include flex-between(0);
+
+    &-list {
+      @include flex-center(0.5rem);
+    }
+    &-list-btn,
+    &-prev,
+    &-next {
+      @include button-reset;
+      @include button(
+        $clr-grey-900,
+        transparent,
+        0.5rem,
+        1px solid $clr-grey-500,
+        1rem
+      );
+      @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 400);
+      @include flex-center(1rem);
+    }
+
+    &-list-btn {
+      width: 40px;
+      height: 40px;
+      transition: all 500ms ease;
+      &:hover {
+        background-color: $clr-grey-900;
+        border-color: $clr-grey-900;
+        color: $white;
+      }
+    }
+  }
+}

@@ -13,6 +13,21 @@ const Transactions = ({ transactions }: Props) => {
     year: "numeric",
   };
 
+  if (transactions.length <= 0) {
+    return (
+      <section className="transactions">
+        <div className="transactions__container">
+          <h2 className="transactions__container-title">Transactions</h2>
+          <Link to="/transactions" className="transactions__container-link">
+            <span>See details</span>
+            <img src={caret} alt="" />
+          </Link>
+        </div>
+        <h2 className="transactions__empty-field">No Transactions</h2>
+      </section>
+    );
+  }
+
   return (
     <section className="transactions">
       <div className="transactions__container">
