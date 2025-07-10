@@ -48,8 +48,8 @@ const TransactionsPage: React.FC = () => {
             <div className="transactions-page__sort-by">
               <label htmlFor="sort">Sort By</label>
               <select name="sort" id="sort">
-                {sortBy.map(({ id, value, title }) => (
-                  <option key={id} value={value}>
+                {sortBy.map(({ value, title }, index) => (
+                  <option key={index} value={value}>
                     {title}
                   </option>
                 ))}

@@ -38,41 +38,46 @@ const Transactions = ({ transactions }: Props) => {
         </Link>
       </div>
       <ul className="transactions__content">
-        {transactions.slice(0, 5).map((transaction: Transaction) => {
-          const transactionsDate = new Date(transaction.date);
-          const formattedDate = transactionsDate.toLocaleDateString(
-            "en-GB",
-            dateOptions
-          );
-          return (
-            <li key={transaction.name} className="transactions__transaction">
-              <div className="transactions__transaction-user">
-                {transaction.avatar && (
-                  <img src={transaction.avatar} alt={transaction.name} />
-                )}
-                <p className="transactions__transaction-user-name">
-                  {transaction.name}
-                </p>
-              </div>
-              <div className="transactions__transaction-info">
-                <p
-                  className={
-                    transaction.amount > 0
-                      ? "transactions__transaction-info-value-positive"
-                      : "transactions__transaction-info-value"
-                  }
-                >
-                  {transaction.amount > 0
-                    ? `+$${transaction.amount}`
-                    : `$${transaction.amount}`}
-                </p>
-                <p className="transactions__transaction-info-date">
-                  {formattedDate}
-                </p>
-              </div>
-            </li>
-          );
-        })}
+        {transactions
+          .slice(0, 5)
+          .map((transaction: Transaction, index: number) => {
+            console.log(index);
+            console.log("test");
+
+            const transactionsDate = new Date(transaction.date);
+            const formattedDate = transactionsDate.toLocaleDateString(
+              "en-GB",
+              dateOptions
+            );
+            return (
+              <li key={index} className="transactions__transaction">
+                <div className="transactions__transaction-user">
+                  {transaction.avatar && (
+                    <img src={transaction.avatar} alt={transaction.name} />
+                  )}
+                  <p className="transactions__transaction-user-name">
+                    {transaction.name}
+                  </p>
+                </div>
+                <div className="transactions__transaction-info">
+                  <p
+                    className={
+                      transaction.amount > 0
+                        ? "transactions__transaction-info-value-positive"
+                        : "transactions__transaction-info-value"
+                    }
+                  >
+                    {transaction.amount > 0
+                      ? `+$${transaction.amount}`
+                      : `$${transaction.amount}`}
+                  </p>
+                  <p className="transactions__transaction-info-date">
+                    {formattedDate}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
       </ul>
     </section>
   );
