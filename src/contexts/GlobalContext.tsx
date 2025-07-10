@@ -38,6 +38,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [endIndex, setEndIndex] = useState(4);
   const [transactionInput, setTransactionInput] = useState<string>("");
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
+  const [categorySelect, setCategorySelect] = useState<string>("");
   // useEffect(() => {
   //   if (!currentUid) return;
 
@@ -71,6 +72,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const response = await fetch("./data.json");
       const data = await response.json();
+      console.log(data);
+
       setBalance(data.balance);
       setTransactions(data.transactions);
       setBudgets(data.budgets);
@@ -86,6 +89,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     getData();
   }, []);
+
   // const getData = async () => {
   //   try {
   //     const response = await fetch("./data.json");
@@ -137,6 +141,19 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const handleCategorySelect = (
+    event: ChangeEvent & { target: HTMLSelectElement }
+  ) => {
+    setCategorySelect(event.target.value);
+    if (event.target.value) {
+      const filteredData = transactions.filter(
+        (item: Transaction) => item.category === event.target.value
+      );
+      setTransactions(filteredData);
+    } else {
+      setTransactions(allTransactions);
+    }
+  };
   const handleNext = () => {
     setCurrentIndex((currentIndex) => {
       if (currentIndex > transactions.length - 1) {
@@ -183,6 +200,11 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     transactionInput,
     setTransactionInput,
     handleInput,
+    categorySelect,
+    setCategorySelect,
+    handleCategorySelect,
+    allTransactions,
+    setAllTransactions,
   };
 
   return (
