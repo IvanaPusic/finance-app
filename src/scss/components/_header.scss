@@ -88,4 +88,24 @@
       }
     }
   }
+  &__logout {
+    margin-top: 4rem;
+    @include flex-start(map-get($spacings, "200"));
+    padding-inline: map-get($spacings, "400");
+    padding-top: map-get($spacings, "200");
+    padding-bottom: map-get($spacings, "200");
+    width: 276px;
+    border-left: 5px solid transparent;
+    @include font($fs-base, 150%, normal, $clr-grey-300, $ff-public, 700);
+    background-color: $clr-grey-900;
+    border: 1px solid transparent;
+    &:hover {
+      background-color: $clr-beige-100;
+      border-left: 5px solid $green;
+      border-top-right-radius: map-get($spacings, "200");
+      border-bottom-right-radius: map-get($spacings, "200");
+      color: $clr-grey-900;
+      cursor: pointer;
+    }
+  }
 }

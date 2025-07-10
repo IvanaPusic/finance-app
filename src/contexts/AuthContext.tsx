@@ -1,4 +1,3 @@
-// src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState } from "react";
 import { type AuthContextValue } from "../types";
 
@@ -8,14 +7,17 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentUid, setCurrentUid] = useState<string>("");
 
   const logIn = (uid: string) => {
     setIsLoggedIn(true);
     setCurrentUid(uid);
   };
-  const logOut = () => setIsLoggedIn(false);
+  const logOut = () => {
+    setIsLoggedIn(false);
+    setCurrentUid("");
+  };
 
   return (
     <AuthContext.Provider

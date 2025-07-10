@@ -52,5 +52,7 @@ export const firebaseLogIn = async (email: string, password: string) => {
     email,
     password
   );
-  return userCredential.user;
+
+  const user = userCredential.user;
+  return user;
 };

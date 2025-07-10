@@ -1,6 +1,6 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./config";
-import type { Transaction } from "../types";
+import type { Transaction, Balance, Budget, Pot } from "../types";
 
 export const getUserData = async (uid: string) => {
   const userDocRef = doc(db, "users", uid);
@@ -15,25 +15,21 @@ export const getUserData = async (uid: string) => {
   }
 };
 
-export const addTransaction = async (
+export const updateFullFinancialData = async (
   uid: string,
-  newTransaction: Transaction
+  data: {
+    transactions?: Transaction[];
+    balance?: Balance;
+    budgets?: Budget[];
+    pots?: Pot[];
+  }
 ) => {
-  const userDocRef = doc(db, "users", uid);
-  const userSnapshot = await getDoc(userDocRef);
-
-  if (!userSnapshot.exists()) {
-    throw new Error("User document does not exist");
+  const userRef = doc(db, "users", uid);
+  if (!uid) {
+    throw new Error("UID is required for updateFullFinancialData");
   }
 
-  const data = userSnapshot.data();
-  const currentTransactions = data.transactions || [];
-
-  // Add the new transaction to the array
-  const updatedTransactions = [...currentTransactions, newTransaction];
-
-  // Write updated array back
-  await updateDoc(userDocRef, {
-    transactions: updatedTransactions,
+  await updateDoc(userRef, {
+    financialData: data,
   });
 };
