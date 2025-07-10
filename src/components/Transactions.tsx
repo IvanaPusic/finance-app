@@ -41,9 +41,6 @@ const Transactions = ({ transactions }: Props) => {
         {transactions
           .slice(0, 5)
           .map((transaction: Transaction, index: number) => {
-            console.log(index);
-            console.log("test");
-
             const transactionsDate = new Date(transaction.date);
             const formattedDate = transactionsDate.toLocaleDateString(
               "en-GB",

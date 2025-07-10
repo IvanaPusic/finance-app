@@ -18,7 +18,7 @@ export type Transaction = {
 export type Budget = {
   category: string;
   maximum: number;
-  theme: number;
+  theme: string;
 };
 
 export type Pot = {

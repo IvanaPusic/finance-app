@@ -5,14 +5,16 @@ import Navigation from "./Navigation";
 
 const PrivateRoute: React.FC = () => {
   const { isLoggedIn } = useAuth();
-  
-  if(isLoggedIn) {
-    return <div className="outlet-layout">
-      <Outlet/>
-      <Navigation/>
-    </div>
-  } 
-  return <Navigate to="/login" replace />
+
+  if (isLoggedIn) {
+    return (
+      <div className="outlet-layout">
+        <Outlet />
+        <Navigation />
+      </div>
+    );
+  }
+  return <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;
