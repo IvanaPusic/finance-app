@@ -52,11 +52,11 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   //   fetchData();
   // }, [currentUid]);
 
-  // useEffect(() => {
-  //   if (currentUid) {
-  //     console.log(currentUid);
-  //   }
-  // }, [currentUid]);
+  useEffect(() => {
+    if (currentUid) {
+      console.log(currentUid);
+    }
+  }, [currentUid]);
 
   const getData = async () => {
     try {
