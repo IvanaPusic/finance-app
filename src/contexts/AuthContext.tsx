@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { type AuthContextValue } from "../types";
 
 // Create context with default `undefined` for safety
@@ -13,11 +13,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logIn = (uid: string) => {
     setIsLoggedIn(true);
     setCurrentUid(uid);
+    localStorage.setItem("uid", uid);
   };
   const logOut = () => {
     setIsLoggedIn(false);
     setCurrentUid("");
+    localStorage.removeItem("uid");
   };
+
+  useEffect(() => {
+    const savedUid = localStorage.getItem("uid");
+    if (!savedUid) return;
+    if (savedUid) {
+      logIn(savedUid);
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
