@@ -4,9 +4,10 @@ import caret from "../assets/images/caret-right.png";
 
 type Props = {
   transactions: Transaction[];
+  allTransactions: Transaction[];
 };
 
-const Transactions = ({ transactions }: Props) => {
+const Transactions = ({ transactions, allTransactions }: Props) => {
   const dateOptions: Intl.DateTimeFormatOptions = {
     day: "2-digit",
     month: "short",
@@ -38,7 +39,7 @@ const Transactions = ({ transactions }: Props) => {
         </Link>
       </div>
       <ul className="transactions__content">
-        {transactions
+        {allTransactions
           .slice(0, 5)
           .map((transaction: Transaction, index: number) => {
             const transactionsDate = new Date(transaction.date);

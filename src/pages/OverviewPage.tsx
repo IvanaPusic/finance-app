@@ -5,7 +5,7 @@ import { Budgets, StatCard, RecurringBills, Transactions } from "../components";
 import Pots from "../components/Pots";
 
 const OverviewPage: React.FC = () => {
-  const { balance, pots, transactions, budgets } = useGlobal();
+  const { balance, pots, transactions, budgets, allTransactions } = useGlobal();
 
   const totalSavingsValue = pots.reduce((sum, pot) => sum + pot.total, 0);
 
@@ -20,7 +20,10 @@ const OverviewPage: React.FC = () => {
       <div className="overview__container">
         <Pots savingsValue={totalSavingsValue} pots={pots} />
         <Budgets budgets={budgets} />
-        <Transactions transactions={transactions} />
+        <Transactions
+          transactions={transactions}
+          allTransactions={allTransactions}
+        />
         <RecurringBills />
       </div>
     </main>
