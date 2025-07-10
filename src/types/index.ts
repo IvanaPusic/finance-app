@@ -57,6 +57,8 @@ export interface GlobalContextValue {
   transactions: Transaction[];
   setTransactions: (tx: Transaction[]) => void;
 
+  allTransactions: Transaction[];
+  setAllTransactions: (tx: Transaction[]) => void;
   budgets: Budget[];
   setBudgets: (budgets: Budget[]) => void;
 
@@ -72,4 +74,8 @@ export interface GlobalContextValue {
   transactionInput: string;
   setTransactionInput: (transactionInput: string) => void;
   handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
+  categorySelect: string;
+  setCategorySelect: (categorySelect: string) => void;
+  handleCategorySelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }

@@ -28,10 +28,83 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [pots, setPots] = useState<Pot[]>([]);
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(4);
+  const [transactionInput, setTransactionInput] = useState<string>("");
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
+  const [categorySelect, setCategorySelect] = useState<string>("");
+  // useEffect(() => {
+  //   if (!currentUid) return;
+
+  //   const fetchData = async () => {
+  //     try {
+  //       const userData = await getUserData(currentUid);
+  //       if (userData) {
+  //         // Set context state here with userData fields
+  //         setBalance(userData.balance);
+  //         setTransactions(userData.transactions);
+  //         setBudgets(userData.budgets);
+  //         setPots(userData.pots);
+  //         setName(userData.name);
+  //         setEmail(userData.email);
+  //       }
+  //     } catch (err) {
+  //       console.error("Failed to fetch user data:", err);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [currentUid]);
+
+  // useEffect(() => {
+  //   if (currentUid) {
+  //     console.log(currentUid);
+  //   }
+  // }, [currentUid]);
+
+  const getData = async () => {
+    try {
+      const response = await fetch("./data.json");
+      const data = await response.json();
+      console.log(data);
+
+      setBalance(data.balance);
+      setTransactions(data.transactions);
+      setBudgets(data.budgets);
+      setPots(data.pots);
+      setAllTransactions(data.transactions);
+      setTransactions(data.transactions);
+      setBudgets(data.budgets);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const { currentUid } = useAuth();
 
   useEffect(() => {
+    getData();
+  }, []);
+
+  // const getData = async () => {
+  //   try {
+  //     const response = await fetch("./data.json");
+  //     const data = await response.json();
+  //     console.log("Data", data);
+  //     setBalance(data.balance);
+  //     setTransactions(data.transactions);
+  //     setBudgets(data.budgets);
+  //     setPots(data.pots);
+  //     setTransactions(data.transactions);
+  //     setBudgets(data.budgets);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (!currentUid) return;
     if (!currentUid) return;
 
     const userDocRef = doc(db, "users", currentUid);
@@ -53,6 +126,56 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     });
 
+  //   return () => unsubscribe(); // 🔁 Clean up on unmount
+  // }, [currentUid]);
+
+  const handleInput = (event: ChangeEvent & { target: HTMLInputElement }) => {
+    setTransactionInput(event.target.value);
+    if (event.target.value) {
+      const filteredData = transactions.filter((item: Transaction) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(event.target.value.toLowerCase());
+      });
+      setTransactions(filteredData);
+    } else {
+      setTransactions(allTransactions);
+    }
+  };
+
+  const handleCategorySelect = (
+    event: ChangeEvent & { target: HTMLSelectElement }
+  ) => {
+    setCategorySelect(event.target.value);
+    if (event.target.value) {
+      const filteredData = transactions.filter(
+        (item: Transaction) => item.category === event.target.value
+      );
+      setTransactions(filteredData);
+    } else {
+      setTransactions(allTransactions);
+    }
+  };
+  const handleNext = () => {
+    setCurrentIndex((currentIndex) => {
+      if (currentIndex > transactions.length - 1) {
+        currentIndex = 0;
+      }
+      console.log(currentIndex);
+      return currentIndex++;
+    });
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((currentIndex) => {
+      if (currentIndex < 0) {
+        currentIndex = 0;
+      }
+      console.log(currentIndex);
+      return currentIndex--;
+    });
+  };
     return () => unsubscribe(); // 🔁 Clean up on unmount
   }, [currentUid]);
 
@@ -71,6 +194,22 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     setPots,
     isActive,
     setIsActive,
+    currentIndex,
+    setCurrentIndex,
+    startIndex,
+    setStartIndex,
+    endIndex,
+    setEndIndex,
+    handleNext,
+    handlePrev,
+    transactionInput,
+    setTransactionInput,
+    handleInput,
+    categorySelect,
+    setCategorySelect,
+    handleCategorySelect,
+    allTransactions,
+    setAllTransactions,
   };
 
   return (
