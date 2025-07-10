@@ -11,8 +11,6 @@ import rightCaret from "../assets/svgs/button-right-icon.svg";
 const TransactionsPage: React.FC = () => {
   const {
     transactions,
-    handleNext,
-    handlePrev,
     transactionInput,
     handleInput,
     categorySelect,
@@ -147,10 +145,7 @@ const TransactionsPage: React.FC = () => {
           })}
         </ul>
         <div className="transactions-page__pagination">
-          <button
-            className="transactions-page__pagination-prev"
-            onClick={handlePrev}
-          >
+          <button className="transactions-page__pagination-prev">
             <img src={leftCaret} alt="" />
             <span>Prev</span>
           </button>
@@ -172,10 +167,7 @@ const TransactionsPage: React.FC = () => {
               5
             </button>
           </div>
-          <button
-            className="transactions-page__pagination-prev"
-            onClick={handleNext}
-          >
+          <button className="transactions-page__pagination-prev">
             <span>Next</span>
             <img src={rightCaret} alt="" />
           </button>

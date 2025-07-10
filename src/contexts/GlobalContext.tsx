@@ -103,8 +103,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   //   }
   // };
 
-  // useEffect(() => {
-  //   if (!currentUid) return;
+  useEffect(() => {
     if (!currentUid) return;
 
     const userDocRef = doc(db, "users", currentUid);
@@ -126,10 +125,12 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     });
 
-  //   return () => unsubscribe(); // 🔁 Clean up on unmount
-  // }, [currentUid]);
+    return () => unsubscribe(); // 🔁 Clean up on unmount
+  }, [currentUid]);
 
-  const handleInput = (event: ChangeEvent & { target: HTMLInputElement }) => {
+  const handleInput = (
+    event: React.ChangeEvent & { target: HTMLInputElement }
+  ) => {
     setTransactionInput(event.target.value);
     if (event.target.value) {
       const filteredData = transactions.filter((item: Transaction) => {
@@ -145,7 +146,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const handleCategorySelect = (
-    event: ChangeEvent & { target: HTMLSelectElement }
+    event: React.ChangeEvent & { target: HTMLSelectElement }
   ) => {
     setCategorySelect(event.target.value);
     if (event.target.value) {
@@ -157,27 +158,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       setTransactions(allTransactions);
     }
   };
-  const handleNext = () => {
-    setCurrentIndex((currentIndex) => {
-      if (currentIndex > transactions.length - 1) {
-        currentIndex = 0;
-      }
-      console.log(currentIndex);
-      return currentIndex++;
-    });
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((currentIndex) => {
-      if (currentIndex < 0) {
-        currentIndex = 0;
-      }
-      console.log(currentIndex);
-      return currentIndex--;
-    });
-  };
-    return () => unsubscribe(); // 🔁 Clean up on unmount
-  }, [currentUid]);
 
   const stateValues = {
     name,
@@ -200,8 +180,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     setStartIndex,
     endIndex,
     setEndIndex,
-    handleNext,
-    handlePrev,
     transactionInput,
     setTransactionInput,
     handleInput,
