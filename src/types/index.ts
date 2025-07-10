@@ -1,3 +1,5 @@
+import type { ChangeEvent } from "react";
+
 export interface AuthContextValue {
   isLoggedIn: boolean;
   logIn: (uid: string) => void;
@@ -63,4 +65,11 @@ export interface GlobalContextValue {
 
   isActive: boolean;
   setIsActive: (isActive: boolean) => void;
+
+  handleNext: () => void;
+  handlePrev: () => void;
+
+  transactionInput: string;
+  setTransactionInput: (transactionInput: string) => void;
+  handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

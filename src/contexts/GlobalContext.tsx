@@ -1,4 +1,10 @@
-import React, { useContext, useState, createContext, useEffect } from "react";
+import React, {
+  useContext,
+  useState,
+  createContext,
+  useEffect,
+  type ChangeEvent,
+} from "react";
 import type {
   Budget,
   GlobalContextValue,
@@ -15,6 +21,7 @@ const GlobalContext = createContext<GlobalContextValue | null>(null);
 export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { currentUid } = useAuth();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -26,9 +33,11 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [pots, setPots] = useState<Pot[]>([]);
   const [isActive, setIsActive] = useState<boolean>(false);
-
-  const { currentUid } = useAuth();
-
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(4);
+  const [transactionInput, setTransactionInput] = useState<string>("");
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
   // useEffect(() => {
   //   if (!currentUid) return;
 
@@ -62,11 +71,11 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const response = await fetch("./data.json");
       const data = await response.json();
-      console.log(data);
       setBalance(data.balance);
       setTransactions(data.transactions);
       setBudgets(data.budgets);
       setPots(data.pots);
+      setAllTransactions(data.transactions);
       setTransactions(data.transactions);
       setBudgets(data.budgets);
     } catch (error) {
@@ -113,6 +122,41 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   //   return () => unsubscribe(); // 🔁 Clean up on unmount
   // }, [currentUid]);
 
+  const handleInput = (event: ChangeEvent & { target: HTMLInputElement }) => {
+    setTransactionInput(event.target.value);
+    if (event.target.value) {
+      const filteredData = transactions.filter((item: Transaction) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(event.target.value.toLowerCase());
+      });
+      setTransactions(filteredData);
+    } else {
+      setTransactions(allTransactions);
+    }
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((currentIndex) => {
+      if (currentIndex > transactions.length - 1) {
+        currentIndex = 0;
+      }
+      console.log(currentIndex);
+      return currentIndex++;
+    });
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((currentIndex) => {
+      if (currentIndex < 0) {
+        currentIndex = 0;
+      }
+      console.log(currentIndex);
+      return currentIndex--;
+    });
+  };
+
   const stateValues = {
     name,
     setName,
@@ -128,6 +172,17 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     setPots,
     isActive,
     setIsActive,
+    currentIndex,
+    setCurrentIndex,
+    startIndex,
+    setStartIndex,
+    endIndex,
+    setEndIndex,
+    handleNext,
+    handlePrev,
+    transactionInput,
+    setTransactionInput,
+    handleInput,
   };
 
   return (
