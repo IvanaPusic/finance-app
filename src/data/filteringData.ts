@@ -25,7 +25,7 @@ const sortByFilter = [
     value: "highest",
   },
   {
-    id: 4,
+    id: 6,
     title: "Lowest",
     value: "lowest",
   },

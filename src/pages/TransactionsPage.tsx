@@ -9,9 +9,14 @@ import leftCaret from "../assets/svgs/button-left-icon.svg";
 import rightCaret from "../assets/svgs/button-right-icon.svg";
 
 const TransactionsPage: React.FC = () => {
-  const { transactions } = useGlobal();
+  const {
+    transactions,
+    handleNext,
+    handlePrev,
+    transactionInput,
+    handleInput,
+  } = useGlobal();
   const [sortBy, setIsSortBy] = useState<Sort[]>(sortByFilter);
-
   const categories = [
     ...new Set(
       transactions.map((transaction: Transaction) => transaction.category)
@@ -35,6 +40,8 @@ const TransactionsPage: React.FC = () => {
               type="text"
               id="transactions"
               name="transactions"
+              value={transactionInput}
+              onChange={(event) => handleInput(event)}
               placeholder="Search transaction"
             />
             <img
@@ -126,7 +133,10 @@ const TransactionsPage: React.FC = () => {
           })}
         </ul>
         <div className="transactions-page__pagination">
-          <button className="transactions-page__pagination-prev">
+          <button
+            className="transactions-page__pagination-prev"
+            onClick={handlePrev}
+          >
             <img src={leftCaret} alt="" />
             <span>Prev</span>
           </button>
@@ -148,7 +158,10 @@ const TransactionsPage: React.FC = () => {
               5
             </button>
           </div>
-          <button className="transactions-page__pagination-prev">
+          <button
+            className="transactions-page__pagination-prev"
+            onClick={handleNext}
+          >
             <span>Next</span>
             <img src={rightCaret} alt="" />
           </button>
