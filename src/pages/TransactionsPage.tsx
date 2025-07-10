@@ -110,17 +110,14 @@ const TransactionsPage: React.FC = () => {
             <span>Amount</span>
           </li>
 
-          {transactions.slice(0, 10).map((transaction: Transaction) => {
+          {transactions.slice(0, 10).map((transaction: Transaction, index) => {
             const formattedDate = new Date(transaction.date).toLocaleDateString(
               "en-GB",
               dateOptions
             );
 
             return (
-              <li
-                key={transaction.name}
-                className="transactions-page__list-row"
-              >
+              <li key={index} className="transactions-page__list-row">
                 <div className="transactions-page__user">
                   {transaction.avatar && (
                     <img src={transaction.avatar} alt={transaction.name} />
