@@ -34,34 +34,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [transactionInput, setTransactionInput] = useState<string>("");
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
   const [categorySelect, setCategorySelect] = useState<string>("");
-  // useEffect(() => {
-  //   if (!currentUid) return;
-
-  //   const fetchData = async () => {
-  //     try {
-  //       const userData = await getUserData(currentUid);
-  //       if (userData) {
-  //         // Set context state here with userData fields
-  //         setBalance(userData.balance);
-  //         setTransactions(userData.transactions);
-  //         setBudgets(userData.budgets);
-  //         setPots(userData.pots);
-  //         setName(userData.name);
-  //         setEmail(userData.email);
-  //       }
-  //     } catch (err) {
-  //       console.error("Failed to fetch user data:", err);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [currentUid]);
-
-  // useEffect(() => {
-  //   if (currentUid) {
-  //     console.log(currentUid);
-  //   }
-  // }, [currentUid]);
 
   const getData = async () => {
     try {
@@ -82,26 +54,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const { currentUid } = useAuth();
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  // const getData = async () => {
-  //   try {
-  //     const response = await fetch("./data.json");
-  //     const data = await response.json();
-  //     console.log("Data", data);
-  //     setBalance(data.balance);
-  //     setTransactions(data.transactions);
-  //     setBudgets(data.budgets);
-  //     setPots(data.pots);
-  //     setTransactions(data.transactions);
-  //     setBudgets(data.budgets);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   useEffect(() => {
     if (!currentUid) return;
@@ -125,7 +77,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     });
 
-    return () => unsubscribe(); // 🔁 Clean up on unmount
+    return () => unsubscribe(); // Clean up on unmount
   }, [currentUid]);
 
   const handleInput = (
