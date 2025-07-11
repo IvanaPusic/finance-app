@@ -20,16 +20,13 @@ const TransactionsPage: React.FC = () => {
   const [sortBy, setIsSortBy] = useState<Sort[]>(sortByFilter);
   const categories = [
     ...new Set(
-      transactions.map((transaction: Transaction) => transaction.category)
+      allTransactions.map((transaction: Transaction) => transaction.category)
     ),
   ];
 
   const filteredTransactions = [
     ...new Set(transactions.map((transaction: Transaction) => transaction)),
   ];
-  console.log(filteredTransactions);
-
-  // console.log(transactions);
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     day: "2-digit",
@@ -81,6 +78,7 @@ const TransactionsPage: React.FC = () => {
               <select
                 name="category"
                 id="category"
+                value={categorySelect}
                 onChange={(e) => handleCategorySelect(e)}
               >
                 {categories.map((category: string, i: number) => (
