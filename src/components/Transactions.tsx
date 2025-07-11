@@ -1,6 +1,7 @@
 import type { Transaction } from "../types";
 import { Link } from "react-router-dom";
 import caret from "../assets/images/caret-right.png";
+import { Timestamp } from "firebase/firestore";
 
 type Props = {
   transactions: Transaction[];
@@ -42,12 +43,14 @@ const Transactions = ({ transactions, allTransactions }: Props) => {
         {allTransactions
           .slice(0, 5)
           .map((transaction: Transaction, index: number) => {
-            const transactionsDate = new Date(transaction.date);
+            const transactionsDate = (transaction.date as Timestamp).toDate();
 
             const formattedDate = transactionsDate.toLocaleDateString(
               "en-GB",
               dateOptions
             );
+            console.log("formatted date: ", formattedDate);
+
             return (
               <li key={index} className="transactions__transaction">
                 <div className="transactions__transaction-user">

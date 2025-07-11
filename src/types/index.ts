@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react";
+import { Timestamp } from "firebase/firestore";
 
 export interface AuthContextValue {
   isLoggedIn: boolean;
@@ -12,7 +13,7 @@ export type Transaction = {
   avatar?: string;
   name: string;
   category: string;
-  date: Date;
+  date: Timestamp;
   amount: number;
   recurring: boolean;
 };

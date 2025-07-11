@@ -7,6 +7,7 @@ import searchIcon from "../assets/images/search-icon.png";
 import caretDown from "../assets/images/caret-down.png";
 import leftCaret from "../assets/svgs/button-left-icon.svg";
 import rightCaret from "../assets/svgs/button-right-icon.svg";
+import { Timestamp } from "firebase/firestore";
 
 const TransactionsPage: React.FC = () => {
   const {
@@ -109,11 +110,12 @@ const TransactionsPage: React.FC = () => {
           </li>
 
           {transactions.slice(0, 10).map((transaction: Transaction, index) => {
-            const formattedDate = new Date(transaction.date).toLocaleDateString(
+            const transactionsDate = (transaction.date as Timestamp).toDate();
+
+            const formattedDate = transactionsDate.toLocaleDateString(
               "en-GB",
               dateOptions
             );
-
             return (
               <li key={index} className="transactions-page__list-row">
                 <div className="transactions-page__user">
