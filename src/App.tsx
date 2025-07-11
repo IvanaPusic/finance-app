@@ -9,17 +9,18 @@ import PrivateRoute from "./components/PrivateRoute";
 import PageWrapper from "./components/PageWrapper";
 import NotFoundPage from "./pages/NotFoundPage";
 import SignupPage from "./pages/SignupPage";
-import GuestRoute from "./components/GuestRoute";
+import PathTracker from "./components/PathTracker";
+import UidTracker from "./components/UidTracker";
 
 function App() {
   return (
     <Router>
       <PageWrapper>
+        <UidTracker />
+        <PathTracker />
         <Routes>
-          <Route element={<GuestRoute />}>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-          </Route>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<OverviewPage />} />
             <Route path="/transactions" element={<TransactionsPage />} />
