@@ -35,24 +35,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
   const [categorySelect, setCategorySelect] = useState<string>("");
 
-  const getData = async () => {
-    try {
-      const response = await fetch("./data.json");
-      const data = await response.json();
-      console.log(data);
-
-      setBalance(data.balance);
-      setTransactions(data.transactions);
-      setBudgets(data.budgets);
-      setPots(data.pots);
-      setAllTransactions(data.transactions);
-      setTransactions(data.transactions);
-      setBudgets(data.budgets);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const { currentUid } = useAuth();
 
   useEffect(() => {
@@ -62,8 +44,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
-        console.log("exists");
-
         const { financialData } = docSnapshot.data();
 
         setTransactions(financialData.transactions || []);
@@ -78,7 +58,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     });
 
     return () => unsubscribe(); // Clean up on unmount
-  }, [currentUid]);
+  }, [currentUid, window.location.pathname]);
 
   const handleInput = (
     event: React.ChangeEvent & { target: HTMLInputElement }

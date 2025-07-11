@@ -21,8 +21,8 @@ const Login: React.FC = () => {
         const user = await firebaseLogIn(emailValue, passwordValue);
         console.log(user);
         logIn(user.uid);
-        getUserData(user.uid);
-        navigate("/"); // ✅ redirect after login
+        const redirectPath = localStorage.getItem("redirectPath") || "/";
+        navigate(redirectPath);
       }
     } catch (error) {
       console.log(error);

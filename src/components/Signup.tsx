@@ -25,8 +25,8 @@ const Signup: React.FC = () => {
           nameValue
         );
         logIn(user.uid);
-        navigate("/"); // ✅ redirect after login
-        console.log(user);
+
+        // navigate("/"); // ✅ redirect after login
       }
     } catch (error) {
       console.log(error);
