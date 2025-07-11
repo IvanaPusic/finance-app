@@ -35,6 +35,28 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
   const [categorySelect, setCategorySelect] = useState<string>("");
 
+  // All categories setup
+  //fix: When there is no data in search field categories should be general and all transactions should be shown
+  // fix: first time clicking on a category button it filters the data, but the second time and so on it does not
+
+  // const getData = async () => {
+  //   try {
+  //     const response = await fetch("./data.json");
+  //     const data = await response.json();
+  //     console.log(data);
+
+  //     setBalance(data.balance);
+  //     setTransactions(data.transactions);
+  //     setBudgets(data.budgets);
+  //     setPots(data.pots);
+  //     setAllTransactions(data.transactions);
+  //     setTransactions(data.transactions);
+  //     setBudgets(data.budgets);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   const { currentUid } = useAuth();
 
   useEffect(() => {
@@ -47,12 +69,14 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         const { financialData } = docSnapshot.data();
 
         setTransactions(financialData.transactions || []);
+        setAllTransactions(financialData.transactions || []);
         setBalance(
           financialData.balance || { current: 0, income: 0, expenses: 0 }
         );
         setBudgets(financialData.budgets || []);
         setPots(financialData.pots || []);
         setName(financialData.name || "");
+        setBudgets(financialData.budgets || []);
         setEmail(financialData.email || "");
       }
     });
