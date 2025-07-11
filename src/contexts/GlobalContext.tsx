@@ -87,14 +87,16 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const handleInput = (
     event: React.ChangeEvent & { target: HTMLInputElement }
   ) => {
-    setTransactionInput(event.target.value);
-    if (event.target.value) {
-      const filteredData = transactions.filter((item: Transaction) => {
-        return Object.values(item)
+    const inputValue = event.target.value;
+    setTransactionInput(inputValue);
+
+    if (inputValue) {
+      const filteredData = allTransactions.filter((item: Transaction) =>
+        Object.values(item)
           .join("")
           .toLowerCase()
-          .includes(event.target.value.toLowerCase());
-      });
+          .includes(inputValue.toLowerCase())
+      );
       setTransactions(filteredData);
     } else {
       setTransactions(allTransactions);
@@ -104,10 +106,12 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const handleCategorySelect = (
     event: React.ChangeEvent & { target: HTMLSelectElement }
   ) => {
-    setCategorySelect(event.target.value);
-    if (event.target.value) {
-      const filteredData = transactions.filter(
-        (item: Transaction) => item.category === event.target.value
+    const selectedCategory = event.target.value;
+    setCategorySelect(selectedCategory);
+
+    if (selectedCategory) {
+      const filteredData = allTransactions.filter(
+        (item: Transaction) => item.category === selectedCategory
       );
       setTransactions(filteredData);
     } else {
