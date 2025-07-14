@@ -88,4 +88,7 @@ export interface GlobalContextValue {
   sortBySelect: string;
   setSortBySelect: (sortBySelect: string) => void;
   handleSortBySelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+
+  postsPerPage: number;
+  setPostsPerPage: (postsPerPage: number) => void;
 }

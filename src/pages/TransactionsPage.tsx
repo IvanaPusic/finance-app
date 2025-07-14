@@ -19,6 +19,7 @@ const TransactionsPage: React.FC = () => {
     allTransactions,
     sortBySelect,
     handleSortBySelect,
+    postsPerPage,
   } = useGlobal();
   const [sortBy, setIsSortBy] = useState<Sort[]>(sortByFilter);
   const categories = [
@@ -27,6 +28,7 @@ const TransactionsPage: React.FC = () => {
     ),
   ];
 
+  console.log("All transactions", allTransactions);
   const dateOptions: Intl.DateTimeFormatOptions = {
     day: "2-digit",
     month: "short",

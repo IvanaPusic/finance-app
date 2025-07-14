@@ -37,6 +37,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
   const [categorySelect, setCategorySelect] = useState<string>("");
   const [sortBySelect, setSortBySelect] = useState<string>("");
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
   useEffect(() => {
     if (!currentUid) return;
@@ -146,6 +147,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  console.log(postsPerPage);
+
   const stateValues = {
     name,
     setName,
@@ -177,6 +180,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     setAllTransactions,
     sortBySelect,
     setSortBySelect,
+    postsPerPage,
+    setPostsPerPage,
     handleSortBySelect,
   };
 
