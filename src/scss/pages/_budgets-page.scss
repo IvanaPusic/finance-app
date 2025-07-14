@@ -1,0 +1,12 @@
+@use "../abstracts/colors" as *;
+@use "../abstracts/spacings" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.budgets-page {
+  padding: map-get($spacings, "400");
+  &__title {
+    @include font(2rem, 120%, normal, $clr-grey-900, $ff-public, 700);
+    padding-bottom: 1.973rem;
+  }
+}
