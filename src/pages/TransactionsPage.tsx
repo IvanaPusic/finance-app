@@ -17,16 +17,14 @@ const TransactionsPage: React.FC = () => {
     categorySelect,
     handleCategorySelect,
     allTransactions,
+    sortBySelect,
+    handleSortBySelect,
   } = useGlobal();
   const [sortBy, setIsSortBy] = useState<Sort[]>(sortByFilter);
   const categories = [
     ...new Set(
       allTransactions.map((transaction: Transaction) => transaction.category)
     ),
-  ];
-
-  const filteredTransactions = [
-    ...new Set(transactions.map((transaction: Transaction) => transaction)),
   ];
 
   const dateOptions: Intl.DateTimeFormatOptions = {
@@ -60,9 +58,14 @@ const TransactionsPage: React.FC = () => {
           <div className="transactions-page__filter-container">
             <div className="transactions-page__sort-by">
               <label htmlFor="sort">Sort By</label>
-              <select name="sort" id="sort">
-                {sortBy.map(({ value, title }, index) => (
-                  <option key={index} value={value}>
+              <select
+                name="sort"
+                id="sort"
+                value={sortBySelect}
+                onChange={(e) => handleSortBySelect(e)}
+              >
+                {sortBy.map(({ value: v, title }, index) => (
+                  <option key={index} value={v}>
                     {title}
                   </option>
                 ))}

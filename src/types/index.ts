@@ -43,6 +43,14 @@ export type Sort = {
   title: string;
 };
 
+export type Category =
+  | "latest"
+  | "oldest"
+  | "A to Z"
+  | "Z to A"
+  | "highest"
+  | "lowest";
+
 export interface GlobalContextValue {
   email: string;
   setEmail: (email: string) => void;
@@ -76,4 +84,8 @@ export interface GlobalContextValue {
   categorySelect: string;
   setCategorySelect: (categorySelect: string) => void;
   handleCategorySelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+
+  sortBySelect: string;
+  setSortBySelect: (sortBySelect: string) => void;
+  handleSortBySelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }

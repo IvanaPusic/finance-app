@@ -5,9 +5,10 @@ import type {
   Transaction,
   Balance,
   Pot,
+  Category,
 } from "../types";
 import { useAuth } from "./AuthContext";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, Timestamp } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { updateFullFinancialData } from "../firebase/dataManipulation";
 import dummyData from "../../public/data.json";
@@ -17,6 +18,7 @@ const GlobalContext = createContext<GlobalContextValue | null>(null);
 export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { currentUid } = useAuth();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -34,30 +36,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [transactionInput, setTransactionInput] = useState<string>("");
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
   const [categorySelect, setCategorySelect] = useState<string>("");
-
-  // All categories setup
-  //fix: When there is no data in search field categories should be general and all transactions should be shown
-  // fix: first time clicking on a category button it filters the data, but the second time and so on it does not
-
-  // const getData = async () => {
-  //   try {
-  //     const response = await fetch("./data.json");
-  //     const data = await response.json();
-  //     console.log(data);
-
-  //     setBalance(data.balance);
-  //     setTransactions(data.transactions);
-  //     setBudgets(data.budgets);
-  //     setPots(data.pots);
-  //     setAllTransactions(data.transactions);
-  //     setTransactions(data.transactions);
-  //     setBudgets(data.budgets);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  const { currentUid } = useAuth();
+  const [sortBySelect, setSortBySelect] = useState<string>("");
 
   useEffect(() => {
     if (!currentUid) return;
@@ -119,6 +98,54 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const checkSelectedCategory = (category: Category): Transaction[] => {
+    let filteredData: Transaction[] = [];
+    setSortBySelect(category);
+    console.log(category);
+    if (category === "latest") {
+      filteredData = allTransactions.sort(
+        (a, b) => b.date.toDate().getTime() - a.date.toDate().getTime()
+      );
+    } else if (category === "oldest") {
+      filteredData = allTransactions.sort(
+        (a, b) => a.date.toDate().getTime() - b.date.toDate().getTime()
+      );
+    } else if (category === "A to Z") {
+      filteredData = allTransactions.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+    } else if (category === "Z to A") {
+      filteredData = allTransactions.sort((a, b) =>
+        b.name.localeCompare(a.name)
+      );
+    } else if (category === "highest") {
+      filteredData = allTransactions
+        .filter((num) => num.amount > 0)
+        .sort((a, b) => {
+          return a.amount - b.amount;
+        });
+    } else if (category === "lowest") {
+      filteredData = allTransactions.sort((a, b) => {
+        return a.amount - b.amount;
+      });
+    }
+
+    setTransactions(filteredData);
+    return [];
+  };
+
+  const handleSortBySelect = (
+    event: React.ChangeEvent & { target: HTMLSelectElement }
+  ) => {
+    const selectedCategory = event.target.value;
+    setCategorySelect(selectedCategory);
+    if (selectedCategory) {
+      checkSelectedCategory(selectedCategory as Category);
+    } else {
+      setTransactions(allTransactions);
+    }
+  };
+
   const stateValues = {
     name,
     setName,
@@ -148,6 +175,9 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     handleCategorySelect,
     allTransactions,
     setAllTransactions,
+    sortBySelect,
+    setSortBySelect,
+    handleSortBySelect,
   };
 
   return (
