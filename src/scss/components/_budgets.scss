@@ -12,13 +12,22 @@
     @include flex-between(0);
     &-title {
       @include font(1.25rem, 120%, normal, $clr-grey-900, $ff-public, 700);
+      &--vertical {
+        display: none;
+      }
     }
     &-link {
       text-decoration: none;
       @include flex-center(0.75rem);
-      span {
-        @include font(0.875rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+      &--vertical {
+        display: none;
       }
+    }
+  }
+  &__see-details {
+    @include font(0.875rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+    &--vertical {
+      display: none;
     }
   }
   &__chart-info {

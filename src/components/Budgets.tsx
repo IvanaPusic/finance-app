@@ -15,9 +15,20 @@ const Budgets = ({ budgets, layoutDirection = "horizontal" }: Props) => {
   return (
     <section className="budgets">
       <div className="budgets__container">
-        <h2 className="budgets__container-title">Budgets</h2>
-        <Link to="/budgets" className="budgets__container-link">
-          <span>See Details</span>
+        <h2
+          className={`budgets__container-title budgets__container-title--${layoutDirection}`}
+        >
+          Budgets
+        </h2>
+        <Link
+          to="/budgets"
+          className={`budgets__container-link budgets__container-link--${layoutDirection}`}
+        >
+          <span
+            className={`budgets__see-details budgets__see-details--${layoutDirection}`}
+          >
+            See Details
+          </span>
           <img src={caret} alt="" />
         </Link>
       </div>

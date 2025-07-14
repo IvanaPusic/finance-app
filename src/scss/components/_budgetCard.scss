@@ -1,0 +1,41 @@
+@use "../abstracts/colors" as *;
+@use "../abstracts/fonts" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/spacings" as *;
+
+.budget-card {
+  width: 500px;
+  height: 500px;
+  background-color: $white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+
+  &__category {
+    display: flex;
+    gap: 1rem;
+    &-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-title {
+      @include font(1.25rem, 120%, normal, $clr-grey-900, $ff-public, 700);
+    }
+  }
+  &__color-dot {
+    border-radius: 50%;
+    background-color: green;
+    width: 20px;
+    height: 20px;
+  }
+  &__edit-budget {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  &__maximum-container {
+    @include font(1rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
