@@ -32,13 +32,22 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isActive, setIsActive] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(4);
+  const [endIndex, setEndIndex] = useState(10);
   const [transactionInput, setTransactionInput] = useState<string>("");
-  const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>(
+    JSON.parse(localStorage.getItem("transactions") || "[]")
+  );
   const [categorySelect, setCategorySelect] = useState<string>("");
   const [sortBySelect, setSortBySelect] = useState<string>("");
-  const [postsPerPage, setPostsPerPage] = useState(10);
-
+  const [transactionsPerPage, setTransactionsPerPage] = useState(10);
+  const [paginationButtonsLength, setPaginationButtonsLength] = useState(
+    Math.round(allTransactions.length / transactionsPerPage)
+  );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [buttons, setButtons] = useState(
+    Array.from({ length: paginationButtonsLength }, (_, i) => i + 1)
+  );
+  console.log("buttons", buttons);
   useEffect(() => {
     if (!currentUid) return;
 
@@ -47,7 +56,10 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
         const { financialData } = docSnapshot.data();
-
+        localStorage.setItem(
+          "transactions",
+          JSON.stringify(financialData.transactions)
+        );
         setTransactions(financialData.transactions || []);
         setAllTransactions(financialData.transactions || []);
         setBalance(
@@ -60,7 +72,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         setEmail(financialData.email || "");
       }
     });
-
     return () => unsubscribe(); // Clean up on unmount
   }, [currentUid, window.location.pathname]);
 
@@ -147,7 +158,13 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  console.log(postsPerPage);
+  const handleDisplayTransactions = () => {
+    setCurrentPage(currentPage + 1);
+    setStartIndex(startIndex + 10);
+    setEndIndex(endIndex + 10);
+
+    console.log(transactions.slice(startIndex, endIndex));
+  };
 
   const stateValues = {
     name,
@@ -180,9 +197,16 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     setAllTransactions,
     sortBySelect,
     setSortBySelect,
-    postsPerPage,
-    setPostsPerPage,
+    paginationButtonsLength,
+    transactionsPerPage,
+    setPaginationButtonsLength,
+    buttons,
+    setButtons,
+    setTransactionsPerPage,
+    currentPage,
+    setCurrentPage,
     handleSortBySelect,
+    handleDisplayTransactions,
   };
 
   return (

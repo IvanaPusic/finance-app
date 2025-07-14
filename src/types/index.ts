@@ -89,6 +89,17 @@ export interface GlobalContextValue {
   setSortBySelect: (sortBySelect: string) => void;
   handleSortBySelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 
-  postsPerPage: number;
-  setPostsPerPage: (postsPerPage: number) => void;
+  transactionsPerPage: number;
+  setTransactionsPerPage: (postsPerPage: number) => void;
+
+  paginationButtonsLength: number;
+  setPaginationButtonsLength: (paginationButtons: number) => void;
+
+  currentPage: number;
+  setCurrentPage: (currentPage: number) => void;
+
+  buttons: number[];
+  setButtons: (buttons: number[]) => void;
+
+  handleDisplayTransactions: () => void;
 }

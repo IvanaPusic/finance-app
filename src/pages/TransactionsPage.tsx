@@ -19,21 +19,29 @@ const TransactionsPage: React.FC = () => {
     allTransactions,
     sortBySelect,
     handleSortBySelect,
-    postsPerPage,
+    buttons,
+    currentPage,
+    transactionsPerPage,
+    handleDisplayTransactions,
   } = useGlobal();
+
   const [sortBy, setIsSortBy] = useState<Sort[]>(sortByFilter);
+
   const categories = [
     ...new Set(
       allTransactions.map((transaction: Transaction) => transaction.category)
     ),
   ];
 
-  console.log("All transactions", allTransactions);
   const dateOptions: Intl.DateTimeFormatOptions = {
     day: "2-digit",
     month: "short",
     year: "numeric",
   };
+
+  const startIndex = (currentPage - 1) * transactionsPerPage;
+  const endIndex = startIndex + transactionsPerPage;
+  const paginatedTransactions = transactions.slice(startIndex, endIndex);
 
   return (
     <main className="transactions-page">
@@ -114,9 +122,8 @@ const TransactionsPage: React.FC = () => {
             <span>Amount</span>
           </li>
 
-          {transactions.slice(0, 10).map((transaction: Transaction, index) => {
+          {paginatedTransactions.map((transaction: Transaction, index) => {
             const transactionsDate = (transaction.date as Timestamp).toDate();
-
             const formattedDate = transactionsDate.toLocaleDateString(
               "en-GB",
               dateOptions
@@ -146,30 +153,39 @@ const TransactionsPage: React.FC = () => {
             );
           })}
         </ul>
+
         <div className="transactions-page__pagination">
-          <button className="transactions-page__pagination-prev">
+          <button
+            className="transactions-page__pagination-prev"
+            // onClick={() =>
+            //   currentPage > 1 && handleDisplayTransactions(currentPage - 1)
+            // }
+          >
             <img src={leftCaret} alt="" />
             <span>Prev</span>
           </button>
+
           <div className="transactions-page__pagination-list">
-            {/* Dynamically add numbers based on how many array items are there */}
-            <button className="transactions-page__pagination-list-btn">
-              1
-            </button>
-            <button className="transactions-page__pagination-list-btn">
-              2
-            </button>
-            <button className="transactions-page__pagination-list-btn">
-              3
-            </button>
-            <button className="transactions-page__pagination-list-btn">
-              4
-            </button>
-            <button className="transactions-page__pagination-list-btn">
-              5
-            </button>
+            {buttons.map((btn, i) => (
+              <button
+                key={i}
+                className={`transactions-page__pagination-list-btn ${
+                  btn === currentPage ? "active" : ""
+                }`}
+                onClick={() => handleDisplayTransactions()}
+              >
+                {btn}
+              </button>
+            ))}
           </div>
-          <button className="transactions-page__pagination-prev">
+
+          <button
+            className="transactions-page__pagination-next"
+            // onClick={() =>
+            //   currentPage < buttons.length &&
+            //   handleDisplayTransactions()
+            // }
+          >
             <span>Next</span>
             <img src={rightCaret} alt="" />
           </button>
