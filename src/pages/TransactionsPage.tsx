@@ -157,9 +157,9 @@ const TransactionsPage: React.FC = () => {
         <div className="transactions-page__pagination">
           <button
             className="transactions-page__pagination-prev"
-            // onClick={() =>
-            //   currentPage > 1 && handleDisplayTransactions(currentPage - 1)
-            // }
+            onClick={() =>
+              currentPage > 1 && handleDisplayTransactions(currentPage - 1)
+            }
           >
             <img src={leftCaret} alt="" />
             <span>Prev</span>
@@ -169,10 +169,12 @@ const TransactionsPage: React.FC = () => {
             {buttons.map((btn, i) => (
               <button
                 key={i}
-                className={`transactions-page__pagination-list-btn ${
-                  btn === currentPage ? "active" : ""
-                }`}
-                onClick={() => handleDisplayTransactions()}
+                className={
+                  currentPage === btn
+                    ? "transactions-page__pagination-list-btn transactions-page__pagination-list-active"
+                    : "transactions-page__pagination-list-btn"
+                }
+                onClick={() => handleDisplayTransactions(btn)}
               >
                 {btn}
               </button>
@@ -181,10 +183,10 @@ const TransactionsPage: React.FC = () => {
 
           <button
             className="transactions-page__pagination-next"
-            // onClick={() =>
-            //   currentPage < buttons.length &&
-            //   handleDisplayTransactions()
-            // }
+            onClick={() =>
+              currentPage < buttons.length &&
+              handleDisplayTransactions(currentPage + 1)
+            }
           >
             <span>Next</span>
             <img src={rightCaret} alt="" />
