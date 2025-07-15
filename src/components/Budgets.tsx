@@ -5,22 +5,36 @@ import { Link } from "react-router-dom";
 import caret from "../assets/images/caret-right.png";
 
 type Props = {
+  layoutDirection?: "horizontal" | "vertical";
   budgets: Budget[];
 };
 
-const Budgets = ({ budgets }: Props) => {
+const Budgets = ({ budgets, layoutDirection = "horizontal" }: Props) => {
   const COLORS: string[] = ["#277C78", "#82C9D7", "#F2CDAC", "#626070"];
 
   return (
-    <section className="budgets">
+    <section className={`budgets budgets--${layoutDirection}`}>
       <div className="budgets__container">
-        <h2 className="budgets__container-title">Budgets</h2>
-        <Link to="/budgets" className="budgets__container-link">
-          <span>See Details</span>
+        <h2
+          className={`budgets__container-title budgets__container-title--${layoutDirection}`}
+        >
+          Budgets
+        </h2>
+        <Link
+          to="/budgets"
+          className={`budgets__container-link budgets__container-link--${layoutDirection}`}
+        >
+          <span
+            className={`budgets__see-details budgets__see-details--${layoutDirection}`}
+          >
+            See Details
+          </span>
           <img src={caret} alt="" />
         </Link>
       </div>
-      <div className="budgets__chart-info">
+      <div
+        className={`budgets__chart-info budgets__chart-info--${layoutDirection}`}
+      >
         <PieChart width={257} height={250}>
           <Pie
             data={budgets}
@@ -42,12 +56,22 @@ const Budgets = ({ budgets }: Props) => {
             ))}
           </Pie>
         </PieChart>
-        <ul className="budgets__categories">
+        <h2
+          className={`budgets__summary-title budgets__summary-title--${layoutDirection}`}
+        >
+          Spending Summary
+        </h2>
+        <ul
+          className={`budgets__categories budgets__categories--${layoutDirection}`}
+        >
           {budgets.map((budget) => {
             const { category, maximum } = budget;
 
             return (
-              <li key={category} className="budgets__category">
+              <li
+                key={category}
+                className={`budgets__category budgets__category--${layoutDirection}`}
+              >
                 <span className="budgets__category-title">{category}</span>
                 <span className="budgets__category-value">${maximum}</span>
               </li>

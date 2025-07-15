@@ -49,6 +49,10 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   );
   const [isButtonActive, setIsButtonActive] = useState(false);
 
+  const [transactionsByCategory, setTransactionsByCategory] = useState<
+    Record<string, Transaction[]>
+  >({});
+
   useEffect(() => {
     if (!currentUid) return;
 
@@ -74,10 +78,27 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         setEmail(financialData.email || "");
         setPots(financialData.pots || []);
         console.log(financialData);
+        setPots(financialData.pots || []);
+        console.log(financialData);
       }
     });
     return () => unsubscribe(); // Clean up on unmount
   }, [currentUid, window.location.pathname]);
+
+  useEffect(() => {
+    if (budgets.length === 0 || transactions.length === 0) return;
+
+    const grouped: Record<string, Transaction[]> = {};
+
+    budgets.forEach((budget) => {
+      grouped[budget.category] = transactions.filter(
+        (transaction) => transaction.category === budget.category
+      );
+      console.log(grouped);
+    });
+
+    setTransactionsByCategory(grouped);
+  }, [budgets, transactions]);
 
   const handleInput = (
     event: React.ChangeEvent & { target: HTMLInputElement }
@@ -209,6 +230,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     handleDisplayTransactions,
     isButtonActive,
     setIsButtonActive,
+    transactionsByCategory,
+    setTransactionsByCategory,
   };
 
   return (
