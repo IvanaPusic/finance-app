@@ -57,6 +57,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
         const { financialData } = docSnapshot.data();
+
         localStorage.setItem(
           "transactions",
           JSON.stringify(financialData.transactions)
@@ -71,6 +72,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         setName(financialData.name || "");
         setBudgets(financialData.budgets || []);
         setEmail(financialData.email || "");
+        setPots(financialData.pots || []);
+        console.log(financialData);
       }
     });
     return () => unsubscribe(); // Clean up on unmount
