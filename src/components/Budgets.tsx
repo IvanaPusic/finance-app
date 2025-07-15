@@ -13,7 +13,7 @@ const Budgets = ({ budgets, layoutDirection = "horizontal" }: Props) => {
   const COLORS: string[] = ["#277C78", "#82C9D7", "#F2CDAC", "#626070"];
 
   return (
-    <section className="budgets">
+    <section className={`budgets budgets--${layoutDirection}`}>
       <div className="budgets__container">
         <h2
           className={`budgets__container-title budgets__container-title--${layoutDirection}`}

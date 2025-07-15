@@ -75,23 +75,26 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         setName(financialData.name || "");
         setBudgets(financialData.budgets || []);
         setEmail(financialData.email || "");
+        const grouped: Record<string, Transaction[]> = {};
       }
     });
     return () => unsubscribe(); // Clean up on unmount
   }, [currentUid, window.location.pathname]);
 
   useEffect(() => {
+    if (budgets.length === 0 || transactions.length === 0) return;
+
     const grouped: Record<string, Transaction[]> = {};
 
     budgets.forEach((budget) => {
-      grouped[budget.category] = allTransactions.filter(
+      grouped[budget.category] = transactions.filter(
         (transaction) => transaction.category === budget.category
       );
       console.log(grouped);
     });
 
     setTransactionsByCategory(grouped);
-  }, [budgets, allTransactions]);
+  }, [budgets, transactions]);
 
   const handleInput = (
     event: React.ChangeEvent & { target: HTMLInputElement }

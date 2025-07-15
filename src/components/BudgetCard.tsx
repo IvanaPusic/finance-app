@@ -7,6 +7,9 @@ import Budgets from "./Budgets";
 type Props = { budget: Budget; transactions: Record<string, Transaction[]> };
 
 const BudgetCard = ({ budget, transactions }: Props) => {
+  console.log(budget);
+  console.log(transactions);
+
   const totalsByCategory = Object.fromEntries(
     Object.entries(transactions).map(([category, transactions]) => [
       category,
@@ -76,21 +79,33 @@ const BudgetCard = ({ budget, transactions }: Props) => {
           <button className="budget-card__see-all">See All</button>
         </div>
         <ul className="budget-card__list">
-          <li className="budget-card__item">
-            <div className="budget-card__item-container">
-              <div className="budget-card__personal-info">
-                <img className="budget-card__avatar" src={avatar} alt="" />
-                <span className="budget-card__name">James Thompson</span>
-              </div>
-              <div className="budget-card__transaction-info">
-                <span className="budget-card__transaction-amount">-$5.00</span>
-                <span className="budget-card__transaction-date">
-                  11 Aug 2024
-                </span>
-              </div>
-            </div>
-            <div className="budget-card__border-div"></div>
-          </li>
+          {transactions[budget.category].slice(0, 3).map((transaction) => {
+            return (
+              <li className="budget-card__item">
+                <div className="budget-card__item-container">
+                  <div className="budget-card__personal-info">
+                    <img
+                      className="budget-card__avatar"
+                      src={transaction.avatar}
+                      alt=""
+                    />
+                    <span className="budget-card__name">
+                      {transaction.name}
+                    </span>
+                  </div>
+                  <div className="budget-card__transaction-info">
+                    <span className="budget-card__transaction-amount">
+                      {transaction.amount.toFixed(2)}$
+                    </span>
+                    <span className="budget-card__transaction-date">
+                      {transaction.date.toDate().toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+                <div className="budget-card__border-div"></div>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>

@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 
 const BudgetsPage: React.FC = () => {
   const { budgets, transactionsByCategory } = useGlobal();
+  console.log(transactionsByCategory);
 
   return (
     <main className="budgets-page">

@@ -8,6 +8,11 @@
   padding: 2rem;
   background-color: $white;
   border-radius: 0.75rem;
+
+  &--vertical {
+    height: 550px;
+    flex-grow: 1;
+  }
   &__container {
     @include flex-between(0);
     &-title {
