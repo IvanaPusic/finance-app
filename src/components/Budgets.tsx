@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import caret from "../assets/images/caret-right.png";
 
 type Props = {
-  layoutDirection: "horizontal" | "vertical";
+  layoutDirection?: "horizontal" | "vertical";
   budgets: Budget[];
 };
 
