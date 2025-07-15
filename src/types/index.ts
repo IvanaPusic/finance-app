@@ -101,5 +101,8 @@ export interface GlobalContextValue {
   buttons: number[];
   setButtons: (buttons: number[]) => void;
 
-  handleDisplayTransactions: () => void;
+  handleDisplayTransactions: (id: number) => void;
+
+  isButtonActive: boolean;
+  setIsButtonActive: (isButtonActive: boolean) => void;
 }

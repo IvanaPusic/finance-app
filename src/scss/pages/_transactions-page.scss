@@ -168,7 +168,19 @@
 
     &-list {
       @include flex-center(0.5rem);
+      &-active {
+        @include button-reset;
+        @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 400);
+        @include flex-center(1rem);
+
+        width: 40px;
+        height: 40px;
+        background-color: $clr-grey-900;
+        border-color: $clr-grey-900;
+        color: $white;
+      }
     }
+
     &-list-btn,
     &-prev,
     &-next {

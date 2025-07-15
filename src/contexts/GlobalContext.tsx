@@ -47,7 +47,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [buttons, setButtons] = useState(
     Array.from({ length: paginationButtonsLength }, (_, i) => i + 1)
   );
-  console.log("buttons", buttons);
+  const [isButtonActive, setIsButtonActive] = useState(false);
+
   useEffect(() => {
     if (!currentUid) return;
 
@@ -154,16 +155,12 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     if (selectedCategory) {
       checkSelectedCategory(selectedCategory as Category);
     } else {
-      setTransactions(allTransactions);
+      setTransactions(transactions);
     }
   };
 
-  const handleDisplayTransactions = () => {
-    setCurrentPage(currentPage + 1);
-    setStartIndex(startIndex + 10);
-    setEndIndex(endIndex + 10);
-
-    console.log(transactions.slice(startIndex, endIndex));
+  const handleDisplayTransactions = (btn: number) => {
+    setCurrentPage(btn);
   };
 
   const stateValues = {
@@ -207,6 +204,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     setCurrentPage,
     handleSortBySelect,
     handleDisplayTransactions,
+    isButtonActive,
+    setIsButtonActive,
   };
 
   return (
