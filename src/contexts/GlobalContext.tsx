@@ -76,12 +76,10 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         setName(financialData.name || "");
         setBudgets(financialData.budgets || []);
         setEmail(financialData.email || "");
-<<<<<<< HEAD
-        const grouped: Record<string, Transaction[]> = {};
-=======
         setPots(financialData.pots || []);
         console.log(financialData);
->>>>>>> main
+        setPots(financialData.pots || []);
+        console.log(financialData);
       }
     });
     return () => unsubscribe(); // Clean up on unmount
