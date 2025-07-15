@@ -49,6 +49,10 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   );
   const [isButtonActive, setIsButtonActive] = useState(false);
 
+  const [transactionsByCategory, setTransactionsByCategory] = useState<
+    Record<string, Transaction[]>
+  >({});
+
   useEffect(() => {
     if (!currentUid) return;
 
@@ -75,6 +79,19 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     });
     return () => unsubscribe(); // Clean up on unmount
   }, [currentUid, window.location.pathname]);
+
+  useEffect(() => {
+    const grouped: Record<string, Transaction[]> = {};
+
+    budgets.forEach((budget) => {
+      grouped[budget.category] = allTransactions.filter(
+        (transaction) => transaction.category === budget.category
+      );
+      console.log(grouped);
+    });
+
+    setTransactionsByCategory(grouped);
+  }, [budgets, allTransactions]);
 
   const handleInput = (
     event: React.ChangeEvent & { target: HTMLInputElement }
@@ -206,6 +223,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     handleDisplayTransactions,
     isButtonActive,
     setIsButtonActive,
+    transactionsByCategory,
+    setTransactionsByCategory,
   };
 
   return (

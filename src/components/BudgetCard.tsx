@@ -1,10 +1,21 @@
 import dots from "../assets/svgs/dots.svg";
 import avatar from "../../public/avatars/james-thompson.png";
-import type { Budget } from "../types";
+import type { Budget, Transaction } from "../types";
+import { useGlobal } from "../contexts/GlobalContext";
+import Budgets from "./Budgets";
 
-type Props = { budget: Budget };
+type Props = { budget: Budget; transactions: Record<string, Transaction[]> };
 
-const BudgetCard = ({ budget }: Props) => {
+const BudgetCard = ({ budget, transactions }: Props) => {
+  const totalsByCategory = Object.fromEntries(
+    Object.entries(transactions).map(([category, transactions]) => [
+      category,
+      transactions.reduce((sum, tx) => sum - tx.amount, 0),
+    ])
+  );
+
+  console.log(totalsByCategory);
+
   return (
     <div className="budget-card">
       <div className="budget-card__category-container">
@@ -27,7 +38,12 @@ const BudgetCard = ({ budget }: Props) => {
       </div>
       <div className="budget-card__progress-bar budget-card__progress-bar--outer">
         <div
-          style={{ backgroundColor: budget.theme }}
+          style={{
+            backgroundColor: budget.theme,
+            width: `${
+              (totalsByCategory[budget.category] / budget.maximum) * 100
+            }%`,
+          }}
           className="budget-card__progress-bar budget-card__progress-bar--inner"
         ></div>
       </div>
@@ -39,14 +55,18 @@ const BudgetCard = ({ budget }: Props) => {
           ></div>
           <div className="budget-card__spent-info">
             <span className="budget-card__spent-title">Spent</span>
-            <span className="budget-card__spent-amount">$15.00</span>
+            <span className="budget-card__spent-amount">
+              ${totalsByCategory[budget.category].toFixed(2)}
+            </span>
           </div>
         </div>
         <div className="budget-card__remaining">
           <div className="budget-card__remaining-marker"></div>
           <div className="budget-card__remaining-info">
             <span className="budget-card__remaining-title">Remaining</span>
-            <span className="budget-card__remaining-amount">$35.00</span>
+            <span className="budget-card__remaining-amount">
+              ${(budget.maximum - totalsByCategory[budget.category]).toFixed(2)}
+            </span>
           </div>
         </div>
       </div>

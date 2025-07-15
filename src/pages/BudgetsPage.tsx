@@ -5,8 +5,7 @@ import BudgetCard from "../components/BudgetCard";
 import type { ReactNode } from "react";
 
 const BudgetsPage: React.FC = () => {
-  const { budgets } = useGlobal();
-  console.log(budgets);
+  const { budgets, transactionsByCategory } = useGlobal();
 
   return (
     <main className="budgets-page">
@@ -15,7 +14,13 @@ const BudgetsPage: React.FC = () => {
         <Budgets layoutDirection="vertical" budgets={budgets} />
         <div className="budgets-page__budgets-container">
           {budgets.map<ReactNode>((budget, index) => {
-            return <BudgetCard key={index} budget={budget} />;
+            return (
+              <BudgetCard
+                key={index}
+                budget={budget}
+                transactions={transactionsByCategory}
+              />
+            );
           })}
         </div>
       </div>
