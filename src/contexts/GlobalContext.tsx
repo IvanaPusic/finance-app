@@ -54,6 +54,11 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   >({});
 
   useEffect(() => {
+    console.log("budgets", budgets);
+    console.log("transactions", transactions);
+  }, [budgets, transactions]);
+
+  useEffect(() => {
     if (!currentUid) return;
 
     const userDocRef = doc(db, "users", currentUid);
@@ -94,9 +99,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       grouped[budget.category] = transactions.filter(
         (transaction) => transaction.category === budget.category
       );
-      console.log("grouped", grouped);
     });
-
+    console.log("grouped", grouped);
     setTransactionsByCategory(grouped);
   }, [budgets, transactions]);
 

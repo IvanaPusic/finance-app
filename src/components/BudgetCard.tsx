@@ -17,9 +17,9 @@ const BudgetCard = ({ budget, transactions }: Props) => {
 
   console.log(totalsByCategory);
 
-  const spentAmount = totalsByCategory[budget.category] ?? 0;
+  const spentAmount = totalsByCategory[budget.category];
   const remainingAmount = budget.maximum - spentAmount;
-  const recentTransactions = (transactions[budget.category] ?? []).slice(0, 3);
+  const recentTransactions = transactions[budget.category].slice(0, 3);
 
   return (
     <div className="budget-card">
