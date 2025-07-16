@@ -66,25 +66,26 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
         const { financialData } = docSnapshot.data();
-
-        localStorage.setItem(
-          "transactions",
-          JSON.stringify(financialData.transactions)
-        );
-        setTransactions(financialData.transactions || []);
-        setAllTransactions(financialData.transactions || []);
-        setBalance(
-          financialData.balance || { current: 0, income: 0, expenses: 0 }
-        );
-        setBudgets(financialData.budgets || []);
-        setPots(financialData.pots || []);
-        setName(financialData.name || "");
-        setBudgets(financialData.budgets || []);
-        setEmail(financialData.email || "");
-        setPots(financialData.pots || []);
-        console.log(financialData);
-        setPots(financialData.pots || []);
-        console.log(financialData);
+        if (financialData) {
+          localStorage.setItem(
+            "transactions",
+            JSON.stringify(financialData.transactions)
+          );
+          setTransactions(financialData.transactions || []);
+          setAllTransactions(financialData.transactions || []);
+          setBalance(
+            financialData.balance || { current: 0, income: 0, expenses: 0 }
+          );
+          setBudgets(financialData.budgets || []);
+          setPots(financialData.pots || []);
+          setName(financialData.name || "");
+          setBudgets(financialData.budgets || []);
+          setEmail(financialData.email || "");
+          setPots(financialData.pots || []);
+          console.log(financialData);
+          setPots(financialData.pots || []);
+          console.log(financialData);
+        }
       }
     });
     return () => unsubscribe();
