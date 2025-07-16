@@ -8,7 +8,7 @@
   flex-direction: row-reverse;
   min-height: 100vh;
   justify-content: flex-end;
-  //   @include breakpoint(small) {
-  //     position: relative;
-  //   }
+  @include breakpoint(small) {
+    position: relative;
+  }
 }
