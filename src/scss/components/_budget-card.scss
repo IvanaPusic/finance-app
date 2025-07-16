@@ -128,5 +128,10 @@
     background: none;
     border: none;
     cursor: pointer;
+    color: $clr-grey-300;
+    text-decoration: none;
+    &:hover {
+      color: black;
+    }
   }
 }
