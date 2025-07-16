@@ -14,15 +14,14 @@ const BudgetsPage: React.FC = () => {
       <div className="budgets-page__main-container">
         <Budgets layoutDirection="vertical" budgets={budgets} />
         <div className="budgets-page__budgets-container">
-          {budgets.map<ReactNode>((budget, index) => {
-            return (
+          {Object.keys(transactionsByCategory).length > 0 &&
+            budgets.map((budget) => (
               <BudgetCard
-                key={index}
+                key={budget.category}
                 budget={budget}
                 transactions={transactionsByCategory}
               />
-            );
-          })}
+            ))}
         </div>
       </div>
     </main>

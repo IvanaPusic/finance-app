@@ -54,6 +54,11 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   >({});
 
   useEffect(() => {
+    console.log("budgets", budgets);
+    console.log("transactions", transactions);
+  }, [budgets, transactions]);
+
+  useEffect(() => {
     if (!currentUid) return;
 
     const userDocRef = doc(db, "users", currentUid);
@@ -82,23 +87,22 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         console.log(financialData);
       }
     });
-    return () => unsubscribe(); // Clean up on unmount
+    return () => unsubscribe();
   }, [currentUid, window.location.pathname]);
 
   useEffect(() => {
-    if (budgets.length === 0 || transactions.length === 0) return;
+    if (budgets.length === 0 || allTransactions.length === 0) return;
 
     const grouped: Record<string, Transaction[]> = {};
 
     budgets.forEach((budget) => {
-      grouped[budget.category] = transactions.filter(
+      grouped[budget.category] = allTransactions.filter(
         (transaction) => transaction.category === budget.category
       );
-      console.log("grouped", grouped);
     });
-
+    console.log("grouped", grouped);
     setTransactionsByCategory(grouped);
-  }, [budgets, transactions]);
+  }, [budgets, allTransactions]);
 
   const handleInput = (
     event: React.ChangeEvent & { target: HTMLInputElement }
@@ -123,6 +127,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     event: React.ChangeEvent & { target: HTMLSelectElement }
   ) => {
     const selectedCategory = event.target.value;
+
     setCategorySelect(selectedCategory);
 
     if (selectedCategory) {
@@ -175,6 +180,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     event: React.ChangeEvent & { target: HTMLSelectElement }
   ) => {
     const selectedCategory = event.target.value;
+
     setCategorySelect(selectedCategory);
     if (selectedCategory) {
       checkSelectedCategory(selectedCategory as Category);

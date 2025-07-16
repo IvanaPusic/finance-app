@@ -1,13 +1,12 @@
 import dots from "../assets/svgs/dots.svg";
 import avatar from "../../public/avatars/james-thompson.png";
 import type { Budget, Transaction } from "../types";
+import { Link } from "react-router-dom";
+import { useGlobal } from "../contexts/GlobalContext";
 
 type Props = { budget: Budget; transactions: Record<string, Transaction[]> };
 
 const BudgetCard = ({ budget, transactions }: Props) => {
-  console.log("BudgetCard budget: ", budget);
-  console.log("BudgetCard transactions: ", transactions);
-
   const totalsByCategory = Object.fromEntries(
     Object.entries(transactions).map(([category, transactions]) => [
       category,
@@ -15,11 +14,30 @@ const BudgetCard = ({ budget, transactions }: Props) => {
     ])
   );
 
-  console.log(totalsByCategory);
+  const {
+    setCategorySelect,
+    categorySelect,
+    allTransactions,
+    setTransactions,
+  } = useGlobal();
 
-  const spentAmount = totalsByCategory[budget.category] ?? 0;
+  const spentAmount = totalsByCategory[budget.category];
   const remainingAmount = budget.maximum - spentAmount;
-  const recentTransactions = (transactions[budget.category] ?? []).slice(0, 3);
+  const recentTransactions = transactions[budget.category].slice(0, 3);
+
+  const handleSeeAll = () => {
+    console.log(categorySelect);
+
+    const selectedCategory = budget.category;
+
+    setCategorySelect(selectedCategory);
+    if (selectedCategory) {
+      const filteredData = allTransactions.filter(
+        (item: Transaction) => item.category === selectedCategory
+      );
+      setTransactions(filteredData);
+    }
+  };
 
   return (
     <div className="budget-card">
@@ -80,7 +98,13 @@ const BudgetCard = ({ budget, transactions }: Props) => {
       <div className="budget-card__latest-spending">
         <div className="budget-card__latest-title-container">
           <h2 className="budget-card__latest-title">Latest Spending</h2>
-          <button className="budget-card__see-all">See All</button>
+          <Link
+            to={"/transactions"}
+            onClick={handleSeeAll}
+            className="budget-card__see-all"
+          >
+            See All
+          </Link>
         </div>
         <ul className="budget-card__list">
           {recentTransactions.length > 0 ? (
