@@ -180,13 +180,14 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const handleSortBySelect = (
     event: React.ChangeEvent & { target: HTMLSelectElement }
   ) => {
-    const selectedCategory = event.target.value;
+    const selectedSort = event.target.value;
 
-    setCategorySelect(selectedCategory);
-    if (selectedCategory) {
-      checkSelectedCategory(selectedCategory as Category);
+    setSortBySelect(selectedSort);
+
+    if (selectedSort) {
+      checkSelectedCategory(selectedSort as Category);
     } else {
-      setTransactions(transactions);
+      setTransactions(allTransactions);
     }
   };
 
