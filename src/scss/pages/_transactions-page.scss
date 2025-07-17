@@ -20,6 +20,17 @@
     border-radius: 7px;
   }
 
+  &__new-transaction-button {
+    padding: 0.8rem;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    font-family: $ff-public;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+
   &__modal {
     width: 500px;
     height: 500px;
