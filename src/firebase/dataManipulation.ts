@@ -33,3 +33,26 @@ export const updateFullFinancialData = async (
     financialData: data,
   });
 };
+
+export const addTransaction = async (
+  uid: string,
+  newTransaction: Transaction
+) => {
+  if (!uid) throw new Error("UID is required");
+
+  const userRef = doc(db, "users", uid);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    throw new Error("User document does not exist");
+  }
+
+  const data = userSnap.data();
+  const existingTransactions = data?.financialData?.transactions || [];
+
+  const updatedTransactions = [...existingTransactions, newTransaction];
+
+  await updateDoc(userRef, {
+    "financialData.transactions": updatedTransactions,
+  });
+};
