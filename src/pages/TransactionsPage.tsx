@@ -138,7 +138,7 @@ const TransactionsPage: React.FC = () => {
               />
               <label htmlFor="date">Date</label>
               <input
-                className="transactions-page__new-transaction-input"
+                className="transactions-page__new-transaction-input transactions-page__new-transaction-input--date"
                 type="date"
                 name="date"
                 id="date"
@@ -153,7 +153,12 @@ const TransactionsPage: React.FC = () => {
                 id="amount"
                 onChange={handleChange}
               />
-              <button type="submit">Submit</button>
+              <button
+                className="transactions-page__new-transaction-button"
+                type="submit"
+              >
+                Submit
+              </button>
             </form>
           </div>
         </div>
