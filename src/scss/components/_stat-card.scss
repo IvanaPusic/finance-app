@@ -8,9 +8,11 @@
   background-color: $white;
   flex: 1;
   border-radius: 0.75rem;
+  @include breakpoint(small) {
+    width: 100%;
+  }
   &:first-of-type {
     background-color: $clr-grey-900;
-
     .stat-card__title,
     .stat-card__value {
       color: $white;

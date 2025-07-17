@@ -2,7 +2,6 @@ import React from "react";
 import { Budgets } from "../components";
 import { useGlobal } from "../contexts/GlobalContext";
 import BudgetCard from "../components/BudgetCard";
-import type { ReactNode } from "react";
 
 const BudgetsPage: React.FC = () => {
   const { budgets, transactionsByCategory } = useGlobal();
