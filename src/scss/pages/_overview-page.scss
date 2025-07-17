@@ -12,6 +12,10 @@
   }
   &__balance {
     @include flex-start(1.497rem);
+    @include breakpoint(small) {
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 
   &__container {
@@ -24,5 +28,14 @@
       "transactions transactions budgets"
       "transactions transactions bills"
       "transactions transactions bills";
+
+    @include breakpoint(small) {
+      display: flex;
+      flex-direction: column;
+    }
+    @include breakpoint(medium) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
