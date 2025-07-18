@@ -47,7 +47,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [buttons, setButtons] = useState(
     Array.from({ length: paginationButtonsLength }, (_, i) => i + 1)
   );
-  const [isButtonActive, setIsButtonActive] = useState(false);
+  const [isButtonActive, setIsButtonActive] = useState(0);
 
   const [transactionsByCategory, setTransactionsByCategory] = useState<
     Record<string, Transaction[]>
@@ -71,6 +71,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
             "transactions",
             JSON.stringify(financialData.transactions)
           );
+          console.log(financialData);
+
           setTransactions(financialData.transactions || []);
           setAllTransactions(financialData.transactions || []);
           setBalance(
@@ -191,6 +193,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  // 1. targetirati button
+  // 2. provjeriti ako je isActiveButton === btn onda mu dodati klasu active
   const handleDisplayTransactions = (btn: number) => {
     setCurrentPage(btn);
   };

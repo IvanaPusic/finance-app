@@ -23,6 +23,7 @@ const TransactionsPage: React.FC = () => {
     currentPage,
     transactionsPerPage,
     handleDisplayTransactions,
+    isButtonActive,
   } = useGlobal();
 
   const [sortBy, setIsSortBy] = useState<Sort[]>(sortByFilter);
