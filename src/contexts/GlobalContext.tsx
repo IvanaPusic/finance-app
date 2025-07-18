@@ -8,9 +8,8 @@ import type {
   Category,
 } from "../types";
 import { useAuth } from "./AuthContext";
-import { doc, onSnapshot, Timestamp } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/config";
-import { updateFullFinancialData } from "../firebase/dataManipulation";
 import dummyData from "../../public/data.json";
 
 const GlobalContext = createContext<GlobalContextValue | null>(null);
@@ -34,23 +33,39 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(10);
   const [transactionInput, setTransactionInput] = useState<string>("");
-  const [allTransactions, setAllTransactions] = useState<Transaction[]>(
-    JSON.parse(localStorage.getItem("transactions") || "[]")
-  );
+
+  // Initialize from localStorage safely (wrap JSON.parse in try-catch)
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>(() => {
+    try {
+      const saved = localStorage.getItem("transactions");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
   const [categorySelect, setCategorySelect] = useState<string>("");
   const [sortBySelect, setSortBySelect] = useState<string>("");
   const [transactionsPerPage, setTransactionsPerPage] = useState(10);
-  const [paginationButtonsLength, setPaginationButtonsLength] = useState(
-    Math.round(allTransactions.length / transactionsPerPage)
+  const [paginationButtonsLength, setPaginationButtonsLength] = useState(() =>
+    Math.ceil(allTransactions.length / transactionsPerPage)
   );
   const [currentPage, setCurrentPage] = useState(1);
-  const [buttons, setButtons] = useState(
+
+  const [buttons, setButtons] = useState<number[]>(() =>
     Array.from({ length: paginationButtonsLength }, (_, i) => i + 1)
   );
 
   const [transactionsByCategory, setTransactionsByCategory] = useState<
     Record<string, Transaction[]>
   >({});
+
+  // Update pagination buttons length & buttons when allTransactions or transactionsPerPage change
+  useEffect(() => {
+    const length = Math.ceil(allTransactions.length / transactionsPerPage);
+    setPaginationButtonsLength(length);
+    setButtons(Array.from({ length }, (_, i) => i + 1));
+  }, [allTransactions, transactionsPerPage]);
 
   useEffect(() => {
     console.log("budgets", budgets);
@@ -64,13 +79,13 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
-        const { financialData } = docSnapshot.data();
+        const data = docSnapshot.data();
+        const financialData = data.financialData || {};
         if (financialData) {
           localStorage.setItem(
             "transactions",
-            JSON.stringify(financialData.transactions)
+            JSON.stringify(financialData.transactions || [])
           );
-          console.log(financialData);
 
           setTransactions(financialData.transactions || []);
           setAllTransactions(financialData.transactions || []);
@@ -80,17 +95,13 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
           setBudgets(financialData.budgets || []);
           setPots(financialData.pots || []);
           setName(financialData.name || "");
-          setBudgets(financialData.budgets || []);
           setEmail(financialData.email || "");
-          setPots(financialData.pots || []);
-          console.log(financialData);
-          setPots(financialData.pots || []);
-          console.log(financialData);
         }
       }
     });
+
     return () => unsubscribe();
-  }, [currentUid, window.location.pathname]);
+  }, [currentUid]);
 
   useEffect(() => {
     if (budgets.length === 0 || allTransactions.length === 0) return;
@@ -102,13 +113,11 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         (transaction) => transaction.category === budget.category
       );
     });
-    console.log("grouped", grouped);
+
     setTransactionsByCategory(grouped);
   }, [budgets, allTransactions]);
 
-  const handleInput = (
-    event: React.ChangeEvent & { target: HTMLInputElement }
-  ) => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     setTransactionInput(inputValue);
 
@@ -126,10 +135,9 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const handleCategorySelect = (
-    event: React.ChangeEvent & { target: HTMLSelectElement }
+    event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedCategory = event.target.value;
-
     setCategorySelect(selectedCategory);
 
     if (selectedCategory) {
@@ -146,7 +154,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     let filteredData: Transaction[] = [];
     setSortBySelect(category);
     const copy = [...allTransactions];
-    console.log(category);
     if (category === "latest") {
       filteredData = copy.sort(
         (a, b) => b.date.toDate().getTime() - a.date.toDate().getTime()
@@ -162,22 +169,18 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     } else if (category === "highest") {
       filteredData = copy
         .filter((num) => num.amount > 0)
-        .sort((a, b) => {
-          return a.amount - b.amount;
-        });
+        .sort((a, b) => b.amount - a.amount); // fixed sorting order
     } else if (category === "lowest") {
-      filteredData = copy.sort((a, b) => {
-        return a.amount - b.amount;
-      });
+      filteredData = copy.sort((a, b) => a.amount - b.amount);
+    } else {
+      filteredData = copy;
     }
 
     setTransactions(filteredData);
-    return [];
+    return filteredData;
   };
 
-  const handleSortBySelect = (
-    event: React.ChangeEvent & { target: HTMLSelectElement }
-  ) => {
+  const handleSortBySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSort = event.target.value;
 
     setSortBySelect(selectedSort);
@@ -188,6 +191,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       setTransactions(allTransactions);
     }
   };
+
   const handleDisplayTransactions = (btn: number) => {
     setCurrentPage(btn);
   };
@@ -251,23 +255,3 @@ export const useGlobal = (): GlobalContextValue => {
   }
   return context;
 };
-
-// helper function to populate dummy data into a user
-
-// useEffect(() => {
-//   const parsedDummyData = {
-//     ...dummyData,
-//     transactions: dummyData.transactions.map((tx) => ({
-//       ...tx,
-//       date: new Date(tx.date),
-//     })),
-//   };
-//   try {
-//     if (currentUid) {
-//       updateFullFinancialData(currentUid, parsedDummyData);
-//       console.log(currentUid);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }, [currentUid]);
