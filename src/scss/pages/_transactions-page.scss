@@ -258,17 +258,17 @@
 
     &-list {
       @include flex-center(0.5rem);
-      &-active {
-        @include button-reset;
-        @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 400);
-        @include flex-center(1rem);
+      // &-active {
+      //   @include button-reset;
+      //   @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 400);
+      //   @include flex-center(1rem);
 
-        width: 40px;
-        height: 40px;
-        background-color: $clr-grey-900;
-        border-color: $clr-grey-900;
-        color: $white;
-      }
+      //   width: 40px;
+      //   height: 40px;
+      //   background-color: $clr-grey-900;
+      //   border-color: $clr-grey-900;
+      //   color: $white;
+      // }
     }
 
     &-list-btn,
@@ -285,6 +285,28 @@
       @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 400);
       @include flex-center(1rem);
       &:hover {
+        background-color: $clr-grey-900;
+        border-color: $clr-grey-900;
+        color: $white;
+      }
+    }
+
+    &-list-btn {
+      @include button-reset;
+      @include button(
+        $clr-grey-900,
+        transparent,
+        0.5rem,
+        1px solid $clr-grey-500,
+        1rem
+      );
+      @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 400);
+      @include flex-center(1rem);
+      width: 40px;
+      height: 40px;
+      transition: all 500ms ease;
+
+      &.transactions-page__pagination-list-active {
         background-color: $clr-grey-900;
         border-color: $clr-grey-900;
         color: $white;

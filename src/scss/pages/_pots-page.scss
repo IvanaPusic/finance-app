@@ -27,6 +27,9 @@
       padding: 1.5rem;
       background-color: $white;
       border-radius: 0.75rem;
+      @include breakpoint(small) {
+        min-width: 100%;
+      }
       &-container {
         @include flex-between(0);
         padding-bottom: 2rem;

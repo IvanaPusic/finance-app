@@ -28,6 +28,7 @@ const TransactionsPage: React.FC = () => {
     currentPage,
     transactionsPerPage,
     handleDisplayTransactions,
+    isButtonActive,
   } = useGlobal();
 
   const { currentUid } = useAuth();
