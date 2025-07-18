@@ -47,7 +47,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [buttons, setButtons] = useState(
     Array.from({ length: paginationButtonsLength }, (_, i) => i + 1)
   );
-  const [isButtonActive, setIsButtonActive] = useState(0);
 
   const [transactionsByCategory, setTransactionsByCategory] = useState<
     Record<string, Transaction[]>
@@ -146,31 +145,28 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const checkSelectedCategory = (category: Category): Transaction[] => {
     let filteredData: Transaction[] = [];
     setSortBySelect(category);
+    const copy = [...allTransactions];
     console.log(category);
     if (category === "latest") {
-      filteredData = allTransactions.sort(
+      filteredData = copy.sort(
         (a, b) => b.date.toDate().getTime() - a.date.toDate().getTime()
       );
     } else if (category === "oldest") {
-      filteredData = allTransactions.sort(
+      filteredData = copy.sort(
         (a, b) => a.date.toDate().getTime() - b.date.toDate().getTime()
       );
     } else if (category === "A to Z") {
-      filteredData = allTransactions.sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
+      filteredData = copy.sort((a, b) => a.name.localeCompare(b.name));
     } else if (category === "Z to A") {
-      filteredData = allTransactions.sort((a, b) =>
-        b.name.localeCompare(a.name)
-      );
+      filteredData = copy.sort((a, b) => b.name.localeCompare(a.name));
     } else if (category === "highest") {
-      filteredData = allTransactions
+      filteredData = copy
         .filter((num) => num.amount > 0)
         .sort((a, b) => {
           return a.amount - b.amount;
         });
     } else if (category === "lowest") {
-      filteredData = allTransactions.sort((a, b) => {
+      filteredData = copy.sort((a, b) => {
         return a.amount - b.amount;
       });
     }
@@ -192,9 +188,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       setTransactions(allTransactions);
     }
   };
-
-  // 1. targetirati button
-  // 2. provjeriti ako je isActiveButton === btn onda mu dodati klasu active
   const handleDisplayTransactions = (btn: number) => {
     setCurrentPage(btn);
   };
@@ -240,8 +233,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     setCurrentPage,
     handleSortBySelect,
     handleDisplayTransactions,
-    isButtonActive,
-    setIsButtonActive,
     transactionsByCategory,
     setTransactionsByCategory,
   };

@@ -102,9 +102,6 @@ export interface GlobalContextValue {
 
   handleDisplayTransactions: (id: number) => void;
 
-  isButtonActive: number;
-  setIsButtonActive: (isButtonActive: number) => void;
-
   transactionsByCategory: Record<string, Transaction[]>;
   setTransactionsByCategory: (
     transactionsByCategory: Record<string, Transaction[]>

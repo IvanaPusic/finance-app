@@ -28,7 +28,6 @@ const TransactionsPage: React.FC = () => {
     currentPage,
     transactionsPerPage,
     handleDisplayTransactions,
-    isButtonActive,
   } = useGlobal();
 
   const { currentUid } = useAuth();
@@ -88,6 +87,7 @@ const TransactionsPage: React.FC = () => {
   const endIndex = startIndex + transactionsPerPage;
   const paginatedTransactions = transactions.slice(startIndex, endIndex);
 
+  console.log("paginated transactions", paginatedTransactions);
   return (
     <main className="transactions-page">
       {isModalVisible && (
@@ -262,6 +262,7 @@ const TransactionsPage: React.FC = () => {
               "en-GB",
               dateOptions
             );
+
             return (
               <li key={index} className="transactions-page__list-row">
                 <div className="transactions-page__user">
