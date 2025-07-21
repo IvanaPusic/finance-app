@@ -10,8 +10,6 @@ type Props = {
 };
 
 const Budgets = ({ budgets, layoutDirection = "horizontal" }: Props) => {
-  const COLORS: string[] = ["#277C78", "#82C9D7", "#F2CDAC", "#626070"];
-
   return (
     <section className={`budgets budgets--${layoutDirection}`}>
       <div className="budgets__container">
@@ -65,12 +63,13 @@ const Budgets = ({ budgets, layoutDirection = "horizontal" }: Props) => {
           className={`budgets__categories budgets__categories--${layoutDirection}`}
         >
           {budgets.map((budget) => {
-            const { category, maximum } = budget;
+            const { category, maximum, theme } = budget;
 
             return (
               <li
                 key={category}
                 className={`budgets__category budgets__category--${layoutDirection}`}
+                style={{ borderLeft: `5px solid ${theme}` }}
               >
                 <span className="budgets__category-title">{category}</span>
                 <span className="budgets__category-value">${maximum}</span>

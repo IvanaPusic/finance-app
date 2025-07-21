@@ -93,7 +93,7 @@ const TransactionsPage: React.FC = () => {
       {isModalVisible && (
         <div
           className="transactions-page__modal-overlay"
-          onClick={(e) => {
+          onClick={() => {
             setIsModalVisible(false);
           }}
         >
