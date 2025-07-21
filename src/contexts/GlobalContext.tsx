@@ -8,9 +8,10 @@ import type {
   Category,
 } from "../types";
 import { useAuth } from "./AuthContext";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, Timestamp } from "firebase/firestore";
 import { db } from "../firebase/config";
 import dummyData from "../../public/data.json";
+import firebase from "firebase/compat/app";
 
 const GlobalContext = createContext<GlobalContextValue | null>(null);
 
@@ -26,6 +27,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     income: 0,
     expenses: 0,
   });
+
+  // const [recuuringBills, setRecurringBills] = useState();
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [pots, setPots] = useState<Pot[]>([]);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -45,7 +48,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   });
 
   const [categorySelect, setCategorySelect] = useState<string>("");
-  const [sortBySelect, setSortBySelect] = useState<string>("");
+  const [sortBySelect, setSortBySelect] = useState("");
   const [transactionsPerPage, setTransactionsPerPage] = useState(10);
   const [paginationButtonsLength, setPaginationButtonsLength] = useState(() =>
     Math.ceil(allTransactions.length / transactionsPerPage)
@@ -73,6 +76,16 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [budgets, transactions]);
 
   useEffect(() => {
+    setSortBySelect("latest");
+
+    const filteredTransactions = [...allTransactions].sort(
+      (a, b) => b.date - a.date
+    );
+
+    setTransactions(filteredTransactions);
+  }, []);
+
+  useEffect(() => {
     if (!currentUid) return;
 
     const userDocRef = doc(db, "users", currentUid);
@@ -87,8 +100,16 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
             JSON.stringify(financialData.transactions || [])
           );
 
-          setTransactions(financialData.transactions || []);
-          setAllTransactions(financialData.transactions || []);
+          const updatedTransactions = financialData.transactions.map(
+            (data: Transaction) => {
+              return {
+                ...data,
+                date: data.date.toDate(),
+              };
+            }
+          );
+          setTransactions(updatedTransactions || []);
+          setAllTransactions(updatedTransactions || []);
           setBalance(
             financialData.balance || { current: 0, income: 0, expenses: 0 }
           );
@@ -152,7 +173,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const checkSelectedCategory = (category: Category): Transaction[] => {
     let filteredData: Transaction[] = [];
-    setSortBySelect(category);
     const copy = [...allTransactions];
     if (category === "latest") {
       filteredData = copy.sort(
@@ -184,7 +204,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     const selectedSort = event.target.value;
 
     setSortBySelect(selectedSort);
-
+    console.log("Selected sort", selectedSort);
     if (selectedSort) {
       checkSelectedCategory(selectedSort as Category);
     } else {
