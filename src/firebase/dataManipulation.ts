@@ -34,9 +34,10 @@ export const updateFullFinancialData = async (
   });
 };
 
-export const addTransaction = async (
+const updateFinancialDataArray = async <T>(
   uid: string,
-  newTransaction: Transaction
+  key: "transactions" | "budgets",
+  newItem: T
 ) => {
   if (!uid) throw new Error("UID is required");
 
@@ -48,11 +49,44 @@ export const addTransaction = async (
   }
 
   const data = userSnap.data();
-  const existingTransactions = data?.financialData?.transactions || [];
+  const existingArray = data?.financialData?.[key] || [];
 
-  const updatedTransactions = [...existingTransactions, newTransaction];
+  const updatedArray = [...existingArray, newItem];
 
   await updateDoc(userRef, {
-    "financialData.transactions": updatedTransactions,
+    [`financialData.${key}`]: updatedArray,
+  });
+};
+
+export const addTransaction = async (
+  uid: string,
+  newTransaction: Transaction
+) => {
+  return updateFinancialDataArray(uid, "transactions", newTransaction);
+};
+
+export const addBudget = async (uid: string, newBudget: Budget) => {
+  return updateFinancialDataArray(uid, "budgets", newBudget);
+};
+
+export const deleteBudget = async (uid: string, categoryToRemove: string) => {
+  if (!uid) throw new Error("UID is required");
+
+  const userRef = doc(db, "users", uid);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    throw new Error("User document does not exist");
+  }
+
+  const data = userSnap.data();
+  const existingBudgets = data?.financialData?.budgets || [];
+
+  const updatedBudgets = existingBudgets.filter(
+    (budget: any) => budget.category !== categoryToRemove
+  );
+
+  await updateDoc(userRef, {
+    "financialData.budgets": updatedBudgets,
   });
 };

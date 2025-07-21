@@ -3,10 +3,22 @@ import avatar from "../../public/avatars/james-thompson.png";
 import type { Budget, Transaction } from "../types";
 import { Link } from "react-router-dom";
 import { useGlobal } from "../contexts/GlobalContext";
+import { deleteBudget } from "../firebase/dataManipulation";
+import { useAuth } from "../contexts/AuthContext";
 
-type Props = { budget: Budget; transactions: Record<string, Transaction[]> };
+type Props = {
+  budget: Budget;
+  transactions: Record<string, Transaction[]>;
+  activeCategory: string | null;
+  setActiveCategory: (activeCategory: string | null) => void;
+};
 
-const BudgetCard = ({ budget, transactions }: Props) => {
+const BudgetCard = ({
+  budget,
+  transactions,
+  activeCategory,
+  setActiveCategory,
+}: Props) => {
   const totalsByCategory = Object.fromEntries(
     Object.entries(transactions).map(([category, transactions]) => [
       category,
@@ -20,6 +32,10 @@ const BudgetCard = ({ budget, transactions }: Props) => {
     allTransactions,
     setTransactions,
   } = useGlobal();
+
+  const { currentUid } = useAuth();
+
+  const isEditModalVisible = activeCategory === budget.category;
 
   const spentAmount = totalsByCategory[budget.category];
   const remainingAmount = budget.maximum - spentAmount;
@@ -40,7 +56,30 @@ const BudgetCard = ({ budget, transactions }: Props) => {
   };
 
   return (
-    <div className="budget-card">
+    <div
+      onClick={() => {
+        if (!isEditModalVisible) return;
+        setActiveCategory(null);
+      }}
+      className="budget-card"
+    >
+      {isEditModalVisible && (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="budget-card__edit-modal"
+        >
+          <button
+            onClick={() => {
+              console.log("delete");
+              deleteBudget(currentUid, budget.category);
+            }}
+            className="budget-card__delete-budget-button"
+          >
+            <span>Delete budget</span>
+          </button>
+        </div>
+      )}
+
       <div className="budget-card__category-container">
         <div className="budget-card__category">
           <div
@@ -49,7 +88,16 @@ const BudgetCard = ({ budget, transactions }: Props) => {
           ></div>
           <h2 className="budget-card__category-title">{budget.category}</h2>
         </div>
-        <button className="budget-card__edit-budget">
+        <button
+          onClick={() => {
+            if (isEditModalVisible) {
+              setActiveCategory(null);
+            } else {
+              setActiveCategory(budget.category);
+            }
+          }}
+          className="budget-card__edit-budget"
+        >
           <img src={dots} alt="" />
         </button>
       </div>

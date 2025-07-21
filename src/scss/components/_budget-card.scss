@@ -7,6 +7,7 @@
   background-color: $white;
   border-radius: 0.75rem;
   padding: 2rem;
+  position: relative;
 
   &__category {
     display: flex;
@@ -132,6 +133,26 @@
     text-decoration: none;
     &:hover {
       color: black;
+    }
+  }
+  &__edit-modal {
+    width: 140px;
+    height: 40px;
+    background: $clr-beige-100;
+    border: 1px solid transparent;
+    position: absolute;
+    top: 55px;
+    right: 34px;
+    border-radius: 10px;
+  }
+  &__delete-budget-button {
+    background: none;
+    border: 1px solid transparent;
+    padding: 0.5rem;
+    cursor: pointer;
+    span {
+      font-family: $ff-public;
+      color: rgb(215, 17, 17);
     }
   }
 }
