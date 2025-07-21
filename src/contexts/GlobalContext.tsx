@@ -75,15 +75,15 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     console.log("transactions", transactions);
   }, [budgets, transactions]);
 
-  useEffect(() => {
-    setSortBySelect("latest");
+  // useEffect(() => {
+  //   setSortBySelect("latest");
 
-    const filteredTransactions = [...allTransactions].sort(
-      (a, b) => b.date - a.date
-    );
+  //   const filteredTransactions = [...allTransactions].sort(
+  //     (a, b) => b.date - a.date
+  //   );
 
-    setTransactions(filteredTransactions);
-  }, []);
+  //   setTransactions(filteredTransactions);
+  // }, []);
 
   useEffect(() => {
     if (!currentUid) return;
@@ -99,17 +99,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
             "transactions",
             JSON.stringify(financialData.transactions || [])
           );
-
-          const updatedTransactions = financialData.transactions.map(
-            (data: Transaction) => {
-              return {
-                ...data,
-                date: data.date.toDate(),
-              };
-            }
-          );
-          setTransactions(updatedTransactions || []);
-          setAllTransactions(updatedTransactions || []);
+          setTransactions(financialData.transactions || []);
+          setAllTransactions(financialData.transactions || []);
           setBalance(
             financialData.balance || { current: 0, income: 0, expenses: 0 }
           );
