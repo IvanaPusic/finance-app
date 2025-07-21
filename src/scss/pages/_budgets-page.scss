@@ -109,4 +109,10 @@
       transform: scale(1.1);
     }
   }
+  &__dropdown {
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+    border-radius: 7px;
+    border: 2px solid black;
+  }
 }

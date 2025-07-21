@@ -48,8 +48,8 @@ const Budgets = ({ budgets, layoutDirection = "horizontal" }: Props) => {
             {budgets.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={COLORS[index]}
-                stroke={COLORS[index]}
+                fill={entry.theme}
+                stroke={entry.theme}
                 fillOpacity={0.7}
                 strokeWidth={4}
               />

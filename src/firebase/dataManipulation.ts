@@ -68,3 +68,25 @@ export const addTransaction = async (
 export const addBudget = async (uid: string, newBudget: Budget) => {
   return updateFinancialDataArray(uid, "budgets", newBudget);
 };
+
+export const deleteBudget = async (uid: string, categoryToRemove: string) => {
+  if (!uid) throw new Error("UID is required");
+
+  const userRef = doc(db, "users", uid);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    throw new Error("User document does not exist");
+  }
+
+  const data = userSnap.data();
+  const existingBudgets = data?.financialData?.budgets || [];
+
+  const updatedBudgets = existingBudgets.filter(
+    (budget: any) => budget.category !== categoryToRemove
+  );
+
+  await updateDoc(userRef, {
+    "financialData.budgets": updatedBudgets,
+  });
+};
