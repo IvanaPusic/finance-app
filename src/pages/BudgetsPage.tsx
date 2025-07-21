@@ -16,13 +16,17 @@ const BudgetsPage: React.FC = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
   const [formData, setFormData] = useState<Budget>({
     category: "",
     maximum: 0,
-    theme: "",
+    theme: "#277C78",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -33,6 +37,8 @@ const BudgetsPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(formData);
+
     setIsModalVisible(false);
     addBudget(currentUid, formData);
     console.log("handleSubmit", formData);
@@ -86,15 +92,33 @@ const BudgetsPage: React.FC = () => {
                 onChange={handleChange}
               />
 
-              <label htmlFor="category">Color</label>
-              <input
-                required
-                className="budgets-page__new-budget-input"
-                type="text"
+              <label htmlFor="theme">Theme</label>
+              <select
+                className="budgets-page__dropdown"
+                onChange={handleChange}
                 name="theme"
                 id="theme"
-                onChange={handleChange}
-              />
+              >
+                <option value="#277C78">
+                  <span>Green</span>
+                </option>
+                <option value="#82C9D7">
+                  <span>Cyan</span>
+                </option>
+                <option value="#F2CDAC">
+                  <span>Yellow</span>
+                </option>
+
+                <option value="#626070">
+                  <span>Navy</span>
+                </option>
+                <option value="#C94736">
+                  <span>Red</span>
+                </option>
+                <option value="#826CB0">
+                  <span>Purple</span>
+                </option>
+              </select>
               <button className="budgets-page__new-budget-button" type="submit">
                 Submit
               </button>
@@ -129,6 +153,8 @@ const BudgetsPage: React.FC = () => {
                 key={budget.category}
                 budget={budget}
                 transactions={transactionsByCategory}
+                activeCategory={activeCategory}
+                setActiveCategory={setActiveCategory}
               />
             ))}
         </div>
