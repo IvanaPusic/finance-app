@@ -8,13 +8,10 @@ import type {
   Category,
 } from "../types";
 import { useAuth } from "./AuthContext";
-import { doc, onSnapshot, Timestamp } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/config";
-import dummyData from "../../public/data.json";
-import firebase from "firebase/compat/app";
 
 const GlobalContext = createContext<GlobalContextValue | null>(null);
-
 export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -27,7 +24,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     income: 0,
     expenses: 0,
   });
-
   // const [recuuringBills, setRecurringBills] = useState();
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [pots, setPots] = useState<Pot[]>([]);
@@ -36,7 +32,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(10);
   const [transactionInput, setTransactionInput] = useState<string>("");
-
   // Initialize from localStorage safely (wrap JSON.parse in try-catch)
   const [allTransactions, setAllTransactions] = useState<Transaction[]>(() => {
     try {
@@ -46,7 +41,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       return [];
     }
   });
-
   const [categorySelect, setCategorySelect] = useState<string>("");
   const [sortBySelect, setSortBySelect] = useState("");
   const [transactionsPerPage, setTransactionsPerPage] = useState(10);
@@ -54,22 +48,18 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     Math.ceil(allTransactions.length / transactionsPerPage)
   );
   const [currentPage, setCurrentPage] = useState(1);
-
   const [buttons, setButtons] = useState<number[]>(() =>
     Array.from({ length: paginationButtonsLength }, (_, i) => i + 1)
   );
-
   const [transactionsByCategory, setTransactionsByCategory] = useState<
     Record<string, Transaction[]>
   >({});
-
   // Update pagination buttons length & buttons when allTransactions or transactionsPerPage change
   useEffect(() => {
     const length = Math.ceil(allTransactions.length / transactionsPerPage);
     setPaginationButtonsLength(length);
     setButtons(Array.from({ length }, (_, i) => i + 1));
   }, [allTransactions, transactionsPerPage]);
-
   useEffect(() => {
     console.log("budgets", budgets);
     console.log("transactions", transactions);
@@ -77,19 +67,15 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // useEffect(() => {
   //   setSortBySelect("latest");
-
   //   const filteredTransactions = [...allTransactions].sort(
   //     (a, b) => b.date - a.date
   //   );
-
   //   setTransactions(filteredTransactions);
   // }, []);
 
   useEffect(() => {
     if (!currentUid) return;
-
     const userDocRef = doc(db, "users", currentUid);
-
     const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
@@ -111,28 +97,23 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         }
       }
     });
-
     return () => unsubscribe();
   }, [currentUid]);
 
   useEffect(() => {
     if (budgets.length === 0 || allTransactions.length === 0) return;
-
     const grouped: Record<string, Transaction[]> = {};
-
     budgets.forEach((budget) => {
       grouped[budget.category] = allTransactions.filter(
         (transaction) => transaction.category === budget.category
       );
     });
-
     setTransactionsByCategory(grouped);
   }, [budgets, allTransactions]);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     setTransactionInput(inputValue);
-
     if (inputValue) {
       const filteredData = allTransactions.filter((item: Transaction) =>
         Object.values(item)
@@ -151,7 +132,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   ) => {
     const selectedCategory = event.target.value;
     setCategorySelect(selectedCategory);
-
     if (selectedCategory) {
       const filteredData = allTransactions.filter(
         (item: Transaction) => item.category === selectedCategory
@@ -162,38 +142,41 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const checkSelectedCategory = (category: Category): Transaction[] => {
+  const checkSelectedCategory = (category: Category) => {
     let filteredData: Transaction[] = [];
     const copy = [...allTransactions];
-    if (category === "latest") {
-      filteredData = copy.sort(
-        (a, b) => b.date.toDate().getTime() - a.date.toDate().getTime()
-      );
-    } else if (category === "oldest") {
-      filteredData = copy.sort(
-        (a, b) => a.date.toDate().getTime() - b.date.toDate().getTime()
-      );
-    } else if (category === "A to Z") {
-      filteredData = copy.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (category === "Z to A") {
-      filteredData = copy.sort((a, b) => b.name.localeCompare(a.name));
-    } else if (category === "highest") {
-      filteredData = copy
-        .filter((num) => num.amount > 0)
-        .sort((a, b) => b.amount - a.amount); // fixed sorting order
-    } else if (category === "lowest") {
-      filteredData = copy.sort((a, b) => a.amount - b.amount);
-    } else {
-      filteredData = copy;
+
+    switch (category) {
+      case "latest":
+        filteredData = copy.sort(
+          (a, b) => b.date.toDate().getTime() - a.date.toDate().getTime()
+        );
+        break;
+      case "oldest":
+        filteredData = copy.sort(
+          (a, b) => a.date.toDate().getTime() - b.date.toDate().getTime()
+        );
+        break;
+      case "A to Z":
+        filteredData = copy.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "Z to A":
+        filteredData = copy.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case "highest":
+        filteredData = copy
+          .filter((num) => num.amount > 0)
+          .sort((a, b) => b.amount - a.amount);
+        break;
+      case "lowest":
+        filteredData = copy.sort((a, b) => a.amount - b.amount);
+        break;
     }
 
     setTransactions(filteredData);
-    return filteredData;
   };
-
   const handleSortBySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSort = event.target.value;
-
     setSortBySelect(selectedSort);
     console.log("Selected sort", selectedSort);
     if (selectedSort) {
@@ -251,7 +234,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     transactionsByCategory,
     setTransactionsByCategory,
   };
-
   return (
     <GlobalContext.Provider value={{ ...stateValues }}>
       {children}
