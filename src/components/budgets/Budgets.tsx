@@ -1,8 +1,9 @@
-import React from "react";
-import type { Budget } from "../types";
-import { PieChart, ResponsiveContainer, Pie, Cell } from "recharts";
+import type { Budget } from "../../types";
+import { PieChart, Pie, Cell } from "recharts";
 import { Link } from "react-router-dom";
-import caret from "../assets/images/caret-right.png";
+import caret from "../../assets/images/caret-right.png";
+import BudgetCategory from "../budget-category/BudgetCategory";
+import "./budgets.scss";
 
 type Props = {
   layoutDirection?: "horizontal" | "vertical";
@@ -66,14 +67,13 @@ const Budgets = ({ budgets, layoutDirection = "horizontal" }: Props) => {
             const { category, maximum, theme } = budget;
 
             return (
-              <li
+              <BudgetCategory
                 key={category}
-                className={`budgets__category budgets__category--${layoutDirection}`}
-                style={{ borderLeft: `5px solid ${theme}` }}
-              >
-                <span className="budgets__category-title">{category}</span>
-                <span className="budgets__category-value">${maximum}</span>
-              </li>
+                category={category}
+                layoutDirection={layoutDirection}
+                theme={theme}
+                maximum={maximum}
+              />
             );
           })}
         </ul>

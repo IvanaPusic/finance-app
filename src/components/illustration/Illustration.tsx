@@ -1,6 +1,7 @@
 import React from "react";
-import illustration from "../assets/images/illustration.svg";
-import logo from "../assets/images/logo.svg";
+import illustration from "../../assets/images/illustration.svg";
+import logo from "../../assets/images/logo.svg";
+import "./illustration.scss";
 
 const Illustration: React.FC = () => {
   return (

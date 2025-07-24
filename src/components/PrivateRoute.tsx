@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import Navigation from "./Navigation";
+import Navigation from "./navigation/Navigation";
 
 const PrivateRoute: React.FC = () => {
   const { isLoggedIn } = useAuth();

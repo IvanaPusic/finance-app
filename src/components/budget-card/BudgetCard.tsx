@@ -1,10 +1,11 @@
-import dots from "../assets/svgs/dots.svg";
-import avatar from "../../public/avatars/james-thompson.png";
-import type { Budget, Transaction } from "../types";
+import dots from "../../assets/svgs/dots.svg";
+import avatar from "../../../public/avatars/james-thompson.png";
+import type { Budget, Transaction } from "../../types";
 import { Link } from "react-router-dom";
-import { useGlobal } from "../contexts/GlobalContext";
-import { deleteBudget } from "../firebase/dataManipulation";
-import { useAuth } from "../contexts/AuthContext";
+import { useGlobal } from "../../contexts/GlobalContext";
+import { deleteBudget } from "../../firebase/dataManipulation";
+import { useAuth } from "../../contexts/AuthContext";
+import "./budget-card.scss";
 
 type Props = {
   budget: Budget;

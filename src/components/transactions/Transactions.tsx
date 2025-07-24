@@ -1,8 +1,9 @@
-import type { Transaction } from "../types";
+import type { Transaction } from "../../types";
 import { Link } from "react-router-dom";
-import caret from "../assets/images/caret-right.png";
+import caret from "../../assets/images/caret-right.png";
 import { Timestamp } from "firebase/firestore";
-
+import OverviewTransaction from "../overview-transaction/OverviewTransaction";
+import "./transactions.scss";
 type Props = {
   transactions: Transaction[];
   allTransactions: Transaction[];
@@ -52,32 +53,12 @@ const Transactions = ({ transactions, allTransactions }: Props) => {
             console.log("formatted date: ", formattedDate);
 
             return (
-              <li key={index} className="transactions__transaction">
-                <div className="transactions__transaction-user">
-                  {transaction.avatar && (
-                    <img src={transaction.avatar} alt={transaction.name} />
-                  )}
-                  <p className="transactions__transaction-user-name">
-                    {transaction.name}
-                  </p>
-                </div>
-                <div className="transactions__transaction-info">
-                  <p
-                    className={
-                      transaction.amount > 0
-                        ? "transactions__transaction-info-value-positive"
-                        : "transactions__transaction-info-value"
-                    }
-                  >
-                    {transaction.amount > 0
-                      ? `+$${transaction.amount}`
-                      : `$${transaction.amount}`}
-                  </p>
-                  <p className="transactions__transaction-info-date">
-                    {formattedDate}
-                  </p>
-                </div>
-              </li>
+              <OverviewTransaction
+                key={index}
+                transaction={transaction}
+                formattedDate={formattedDate}
+                transactionClass="transactions__transaction"
+              />
             );
           })}
       </ul>

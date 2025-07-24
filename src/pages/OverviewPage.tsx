@@ -2,7 +2,7 @@ import React from "react";
 import "../scss/styles.scss";
 import { useGlobal } from "../contexts/GlobalContext";
 import { Budgets, StatCard, RecurringBills, Transactions } from "../components";
-import Pots from "../components/Pots";
+import Pots from "../components/pots/Pots";
 
 const OverviewPage: React.FC = () => {
   const { balance, pots, transactions, budgets, allTransactions } = useGlobal();

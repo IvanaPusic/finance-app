@@ -9,7 +9,7 @@ import leftCaret from "../assets/svgs/button-left-icon.svg";
 import rightCaret from "../assets/svgs/button-right-icon.svg";
 import whitePlusIcon from "../assets/svgs/plus-white.svg";
 import { Timestamp } from "firebase/firestore";
-import TransactionModal from "../components/modal/TransactionModal";
+import TransactionModal from "../components/transaction-modal/TransactionModal";
 import SingleTransaction from "../components/transaction/SingleTransaction";
 
 const TransactionsPage: React.FC = () => {
@@ -156,6 +156,7 @@ const TransactionsPage: React.FC = () => {
                 key={index}
                 transaction={transaction}
                 formattedDate={formattedDate}
+                transactionClass="transactions-page__list-row"
               />
             );
           })}
