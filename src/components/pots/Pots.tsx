@@ -1,7 +1,8 @@
-import type { Pot } from "../types";
+import type { Pot } from "../../types";
 import { Link } from "react-router-dom";
-import jar from "../assets/images/jar.png";
-import caret from "../assets/images/caret-right.png";
+import jar from "../../assets/images/jar.png";
+import caret from "../../assets/images/caret-right.png";
+import "./pots.scss";
 
 type Props = {
   pots: Pot[];

@@ -1,7 +1,7 @@
-@use "../abstracts/colors" as *;
-@use "../abstracts/fonts" as *;
-@use "../abstracts/mixins" as *;
-@use "../abstracts/spacings" as *;
+@use "@/scss/abstracts/colors" as *;
+@use "@/scss/abstracts/fonts" as *;
+@use "@/scss/abstracts/mixins" as *;
+@use "@/scss/abstracts/spacings" as *;
 
 .budget-card {
   background-color: $white;

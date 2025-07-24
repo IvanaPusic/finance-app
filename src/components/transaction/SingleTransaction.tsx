@@ -3,14 +3,16 @@ import type { Transaction } from "../../types";
 interface TransactionProps {
   transaction: Transaction;
   formattedDate: string;
+  transactionClass: string;
 }
 
 const SingleTransaction = ({
   transaction,
   formattedDate,
+  transactionClass,
 }: TransactionProps) => {
   return (
-    <li className="transactions-page__list-row">
+    <li className={transactionClass}>
       <div className="transactions-page__user">
         {transaction.avatar && (
           <img src={transaction.avatar} alt={transaction.name} />
