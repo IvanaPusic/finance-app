@@ -36,7 +36,7 @@ export const updateFullFinancialData = async (
 
 const updateFinancialDataArray = async <T>(
   uid: string,
-  key: "transactions" | "budgets",
+  key: "transactions" | "budgets" | "pots",
   newItem: T
 ) => {
   if (!uid) throw new Error("UID is required");
@@ -69,6 +69,10 @@ export const addBudget = async (uid: string, newBudget: Budget) => {
   return updateFinancialDataArray(uid, "budgets", newBudget);
 };
 
+export const addPot = async (uid: string, newPot: Pot) => {
+  return updateFinancialDataArray(uid, "pots", newPot);
+};
+
 export const deleteBudget = async (uid: string, categoryToRemove: string) => {
   if (!uid) throw new Error("UID is required");
 
@@ -83,7 +87,7 @@ export const deleteBudget = async (uid: string, categoryToRemove: string) => {
   const existingBudgets = data?.financialData?.budgets || [];
 
   const updatedBudgets = existingBudgets.filter(
-    (budget: any) => budget.category !== categoryToRemove
+    (budget: Budget) => budget.category !== categoryToRemove
   );
 
   await updateDoc(userRef, {
