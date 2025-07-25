@@ -1,11 +1,11 @@
 import dots from "../../assets/svgs/dots.svg";
-import avatar from "../../../public/avatars/james-thompson.png";
 import type { Budget, Transaction } from "../../types";
-import { Link } from "react-router-dom";
-import { useGlobal } from "../../contexts/GlobalContext";
 import { deleteBudget } from "../../firebase/dataManipulation";
 import { useAuth } from "../../contexts/AuthContext";
 import "./budget-card.scss";
+import BudgetProgressBar from "../budget-progress-bar/BudgetProgressBar";
+import BudgetBalance from "../budget-balance/BudgetBalance";
+import LatestSpending from "../latest-spending/LatestSpending";
 
 type Props = {
   budget: Budget;
@@ -27,13 +27,6 @@ const BudgetCard = ({
     ])
   );
 
-  const {
-    setCategorySelect,
-    categorySelect,
-    allTransactions,
-    setTransactions,
-  } = useGlobal();
-
   const { currentUid } = useAuth();
 
   const isEditModalVisible = activeCategory === budget.category;
@@ -42,22 +35,8 @@ const BudgetCard = ({
   const remainingAmount = budget.maximum - spentAmount;
   const recentTransactions = transactions[budget.category].slice(0, 3);
 
-  const handleSeeAll = () => {
-    console.log(categorySelect);
-
-    const selectedCategory = budget.category;
-
-    setCategorySelect(selectedCategory);
-    if (selectedCategory) {
-      const filteredData = allTransactions.filter(
-        (item: Transaction) => item.category === selectedCategory
-      );
-      setTransactions(filteredData);
-    }
-  };
-
   return (
-    <div
+    <article
       onClick={() => {
         if (!isEditModalVisible) return;
         setActiveCategory(null);
@@ -110,88 +89,16 @@ const BudgetCard = ({
         </span>
       </div>
 
-      <div className="budget-card__progress-bar budget-card__progress-bar--outer">
-        <div
-          style={{
-            backgroundColor: budget.theme,
-            width: `${(spentAmount / budget.maximum) * 100}%`,
-          }}
-          className="budget-card__progress-bar budget-card__progress-bar--inner"
-        ></div>
-      </div>
+      <BudgetProgressBar budget={budget} spentAmount={spentAmount} />
 
-      <div className="budget-card__balance">
-        <div className="budget-card__spent">
-          <div
-            style={{ backgroundColor: budget.theme }}
-            className="budget-card__spent-marker"
-          ></div>
-          <div className="budget-card__spent-info">
-            <span className="budget-card__spent-title">Spent</span>
-            <span className="budget-card__spent-amount">
-              ${spentAmount.toFixed(2)}
-            </span>
-          </div>
-        </div>
-        <div className="budget-card__remaining">
-          <div className="budget-card__remaining-marker"></div>
-          <div className="budget-card__remaining-info">
-            <span className="budget-card__remaining-title">Remaining</span>
-            <span className="budget-card__remaining-amount">
-              ${remainingAmount.toFixed(2)}
-            </span>
-          </div>
-        </div>
-      </div>
+      <BudgetBalance
+        budget={budget}
+        spentAmount={spentAmount}
+        remainingAmount={remainingAmount}
+      />
 
-      <div className="budget-card__latest-spending">
-        <div className="budget-card__latest-title-container">
-          <h2 className="budget-card__latest-title">Latest Spending</h2>
-          <Link
-            to={"/transactions"}
-            onClick={handleSeeAll}
-            className="budget-card__see-all"
-          >
-            See All
-          </Link>
-        </div>
-        <ul className="budget-card__list">
-          {recentTransactions.length > 0 ? (
-            recentTransactions.map((transaction, index) => (
-              <li key={index} className="budget-card__item">
-                <div className="budget-card__item-container">
-                  <div className="budget-card__personal-info">
-                    <img
-                      className="budget-card__avatar"
-                      src={transaction.avatar || avatar}
-                      alt=""
-                    />
-                    <span className="budget-card__name">
-                      {transaction.name}
-                    </span>
-                  </div>
-                  <div className="budget-card__transaction-info">
-                    <span className="budget-card__transaction-amount">
-                      {transaction.amount.toFixed(2)}$
-                    </span>
-                    <span className="budget-card__transaction-date">
-                      {transaction.date.toDate().toLocaleDateString()}
-                    </span>
-                  </div>
-                </div>
-                <div className="budget-card__border-div"></div>
-              </li>
-            ))
-          ) : (
-            <li className="budget-card__item">
-              <div className="budget-card__no-transactions">
-                No recent transactions.
-              </div>
-            </li>
-          )}
-        </ul>
-      </div>
-    </div>
+      <LatestSpending budget={budget} recentTransactions={recentTransactions} />
+    </article>
   );
 };
 
