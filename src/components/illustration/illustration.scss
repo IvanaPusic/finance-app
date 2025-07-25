@@ -1,4 +1,7 @@
-@use "../abstracts" as *;
+@use "@/scss/abstracts/colors" as *;
+@use "@/scss/abstracts/fonts" as *;
+@use "@/scss/abstracts/mixins" as *;
+@use "@/scss/abstracts/spacings" as *;
 
 .illustration {
   position: relative;
@@ -19,7 +22,7 @@
     position: absolute;
     bottom: 2rem;
     left: 2rem;
-    color: white;
+    color: $white;
     width: 25rem;
     font-family: $ff-public;
   }

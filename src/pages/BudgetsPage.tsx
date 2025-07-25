@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Budgets } from "../components";
 import { useGlobal } from "../contexts/GlobalContext";
 import { useAuth } from "../contexts/AuthContext";
-import BudgetCard from "../components/BudgetCard";
+import BudgetCard from "../components/budget-card/BudgetCard";
 import whitePlusIcon from "../assets/svgs/plus-white.svg";
 import x from "../assets/svgs/x.svg";
 import { addBudget } from "../firebase/dataManipulation";
@@ -15,9 +15,7 @@ const BudgetsPage: React.FC = () => {
   const { currentUid } = useAuth();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-
   const [formData, setFormData] = useState<Budget>({
     category: "",
     maximum: 0,

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { routes } from "../data/routes";
-import logo from "../assets/images/logo.svg";
-import { useAuth } from "../contexts/AuthContext";
+import { routes } from "../../data/routes";
+import logo from "../../assets/images/logo.svg";
+import { useAuth } from "../../contexts/AuthContext";
+import "./navigation.scss";
 
 const Navigation = () => {
   const { logOut } = useAuth();

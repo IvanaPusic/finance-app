@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import type { Pot } from "../types";
-import breadcrumb from "../assets/svgs/breadcrumb.png";
+import { useState } from "react";
+import type { Pot } from "../../types";
+import breadcrumb from "../../assets/svgs/breadcrumb.png";
 
 type Props = {
   pot: Pot;
