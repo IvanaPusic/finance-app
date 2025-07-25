@@ -26,7 +26,7 @@ export type Budget = {
 export type Pot = {
   name: string;
   target: number;
-  total: number;
+  total?: number;
   theme: string;
 };
 
@@ -106,4 +106,7 @@ export interface GlobalContextValue {
   setTransactionsByCategory: (
     transactionsByCategory: Record<string, Transaction[]>
   ) => void;
+
+  isNewPotModalOpen: boolean;
+  setIsNewPotModalOpen: (isNewPotModalOpen: boolean) => void;
 }

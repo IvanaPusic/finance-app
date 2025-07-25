@@ -31,6 +31,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(10);
+  const [isNewPotModalOpen, setIsNewPotModalOpen] = useState<boolean>(false);
   const [transactionInput, setTransactionInput] = useState<string>("");
   // Initialize from localStorage safely (wrap JSON.parse in try-catch)
   const [allTransactions, setAllTransactions] = useState<Transaction[]>(() => {
@@ -233,6 +234,8 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     handleDisplayTransactions,
     transactionsByCategory,
     setTransactionsByCategory,
+    isNewPotModalOpen,
+    setIsNewPotModalOpen,
   };
   return (
     <GlobalContext.Provider value={{ ...stateValues }}>
