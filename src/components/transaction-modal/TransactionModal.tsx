@@ -4,7 +4,7 @@ import avatarPlaceholder from "../../../public/avatars/user.png";
 import type { Transaction } from "../../types";
 import { addTransaction } from "../../firebase/dataManipulation";
 import { useAuth } from "../../contexts/AuthContext";
-import closeBtn from "../../assets/images/close-btn.png";
+import closeBtn from "../../assets/images/close-button.png";
 import "./transaction-modal.scss";
 
 interface TransactionModalProps {

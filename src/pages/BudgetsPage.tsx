@@ -35,7 +35,6 @@ const BudgetsPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
 
     setIsModalVisible(false);
     addBudget(currentUid, formData);
@@ -97,25 +96,12 @@ const BudgetsPage: React.FC = () => {
                 name="theme"
                 id="theme"
               >
-                <option value="#277C78">
-                  <span>Green</span>
-                </option>
-                <option value="#82C9D7">
-                  <span>Cyan</span>
-                </option>
-                <option value="#F2CDAC">
-                  <span>Yellow</span>
-                </option>
-
-                <option value="#626070">
-                  <span>Navy</span>
-                </option>
-                <option value="#C94736">
-                  <span>Red</span>
-                </option>
-                <option value="#826CB0">
-                  <span>Purple</span>
-                </option>
+                <option value="#277C78">Green</option>
+                <option value="#82C9D7">Cyan</option>
+                <option value="#F2CDAC">Yellow</option>
+                <option value="#626070">Navy</option>
+                <option value="#C94736">Red</option>
+                <option value="#826CB0">Purple</option>
               </select>
               <button className="budgets-page__new-budget-button" type="submit">
                 Submit
