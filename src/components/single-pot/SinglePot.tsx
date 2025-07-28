@@ -9,7 +9,7 @@ type Props = {
 const SinglePot = ({ pot }: Props) => {
   const { name, theme, target, total } = pot;
   const [progressValue, setProgressValue] = useState(
-    ((total / target) * 100).toFixed(2)
+    ((total || 0 / target) * 100).toFixed(2)
   );
   console.log(`${name}: ${progressValue}%`);
 

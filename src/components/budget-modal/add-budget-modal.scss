@@ -1,0 +1,73 @@
+@use "@/scss/abstracts/colors" as *;
+@use "@/scss/abstracts/fonts" as *;
+@use "@/scss/abstracts/mixins" as *;
+@use "@/scss/abstracts/spacings" as *;
+
+.add-budget-modal {
+  width: 500px;
+  height: 500px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  border: 0.5px solid black;
+  display: flex;
+  flex-direction: column;
+  &__overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+
+  &__new-budget-form {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  &__new-budget-input {
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+    border-radius: 7px;
+  }
+
+  &__new-budget-button {
+    padding: 0.8rem;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    font-family: $ff-public;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+  &__new-budget-title {
+    @include font(1.7rem, 120%, normal, $clr-grey-900, $ff-public, 700);
+    &-container {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__close-modal {
+    background: none;
+    border: none;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  &__dropdown {
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+    border-radius: 7px;
+    border: 2px solid black;
+  }
+}

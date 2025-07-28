@@ -7,7 +7,7 @@ import BudgetProgressBar from "../budget-progress-bar/BudgetProgressBar";
 import BudgetBalance from "../budget-balance/BudgetBalance";
 import LatestSpending from "../latest-spending/LatestSpending";
 
-type Props = {
+type BudgetCardProps = {
   budget: Budget;
   transactions: Record<string, Transaction[]>;
   activeCategory: string | null;
@@ -19,7 +19,7 @@ const BudgetCard = ({
   transactions,
   activeCategory,
   setActiveCategory,
-}: Props) => {
+}: BudgetCardProps) => {
   const totalsByCategory = Object.fromEntries(
     Object.entries(transactions).map(([category, transactions]) => [
       category,
