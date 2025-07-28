@@ -45,7 +45,7 @@ const PotsPage: React.FC = () => {
       </div>
       <div className="pots-page__info">
         {pots.map((pot) => {
-          return <SinglePot key={pot.name} pot={pot} han />;
+          return <SinglePot key={pot.name} pot={pot} />;
         })}
       </div>
     </main>
