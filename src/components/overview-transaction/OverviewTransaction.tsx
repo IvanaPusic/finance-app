@@ -1,5 +1,4 @@
-import type { Transaction } from "firebase/firestore";
-import React from "react";
+import type { Transaction } from "../../types";
 import "./overview-transaction.scss";
 
 interface TransactionProps {
