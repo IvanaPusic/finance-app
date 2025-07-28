@@ -109,4 +109,7 @@ export interface GlobalContextValue {
 
   isNewPotModalOpen: boolean;
   setIsNewPotModalOpen: (isNewPotModalOpen: boolean) => void;
+
+  isAddToSavingsOpen: boolean;
+  setIsAddToSavingsOpen: (isAddToSavingsOpen: boolean) => void;
 }
