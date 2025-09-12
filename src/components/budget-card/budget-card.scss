@@ -21,6 +21,12 @@
       @include font(1.25rem, 120%, normal, $clr-grey-900, $ff-public, 700);
     }
   }
+
+  &__maximum-text,
+  &__maximum-amount {
+    @include font($fs-sm, 150%, normal, $clr-grey-400, $ff-public, 400);
+  }
+
   &__color-dot {
     border-radius: 50%;
     width: 20px;

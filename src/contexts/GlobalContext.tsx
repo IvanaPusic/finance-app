@@ -62,18 +62,12 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     setPaginationButtonsLength(length);
     setButtons(Array.from({ length }, (_, i) => i + 1));
   }, [allTransactions, transactionsPerPage]);
+
   useEffect(() => {
     console.log("budgets", budgets);
-    console.log("transactions", transactions);
+    console.log("transactions", transactions.at(50));
+    // transactions.unshift(transactions.at(50))
   }, [budgets, transactions]);
-
-  // useEffect(() => {
-  //   setSortBySelect("latest");
-  //   const filteredTransactions = [...allTransactions].sort(
-  //     (a, b) => b.date - a.date
-  //   );
-  //   setTransactions(filteredTransactions);
-  // }, []);
 
   useEffect(() => {
     if (!currentUid) return;

@@ -45,7 +45,8 @@ const AddBudgetModal = ({ setIsModalVisible }: AddBudgetModalProps) => {
     >
       <div onClick={(e) => e.stopPropagation()} className="add-budget-modal">
         <div className="add-budget-modal__new-budget-title-container">
-          <h3 className="add-budget-modal__new-budget-title">New Budget</h3>
+          <h3 className="add-budget-modal__new-budget-title">Add New Budget</h3>
+
           <button
             onClick={() => {
               setIsModalVisible(false);
@@ -55,12 +56,18 @@ const AddBudgetModal = ({ setIsModalVisible }: AddBudgetModalProps) => {
             <img src={x} alt="" />
           </button>
         </div>
+        <p className="add-budget-modal__info">
+          Choose a category to set a spending budget. These categories can help
+          you monitor spending.
+        </p>
         <form
           className="add-budget-modal__new-budget-form"
           onSubmit={handleSubmit}
           action=""
         >
-          <label htmlFor="category">Category</label>
+          <label htmlFor="category" className="add-budget-modal__label">
+            Budget Category
+          </label>
           <input
             required
             className="add-budget-modal__new-budget-input"
@@ -68,9 +75,12 @@ const AddBudgetModal = ({ setIsModalVisible }: AddBudgetModalProps) => {
             name="category"
             id="category"
             onChange={handleChange}
+            placeholder="e.g. Personal care"
           />
 
-          <label htmlFor="amount">Maximum ($)</label>
+          <label htmlFor="amount" className="add-budget-modal__label">
+            Maximum Spend
+          </label>
           <input
             required
             className="add-budget-modal__new-budget-input"
@@ -78,9 +88,12 @@ const AddBudgetModal = ({ setIsModalVisible }: AddBudgetModalProps) => {
             name="maximum"
             id="maximum"
             onChange={handleChange}
+            placeholder="$ 500"
           />
 
-          <label htmlFor="theme">Theme</label>
+          <label htmlFor="theme" className="add-budget-modal__label">
+            Theme
+          </label>
           <select
             className="add-budget-modal__dropdown"
             onChange={handleChange}
@@ -95,7 +108,7 @@ const AddBudgetModal = ({ setIsModalVisible }: AddBudgetModalProps) => {
             <option value="#826CB0">Purple</option>
           </select>
           <button className="add-budget-modal__new-budget-button" type="submit">
-            Submit
+            Add Budget
           </button>
         </form>
       </div>

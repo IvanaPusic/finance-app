@@ -62,7 +62,9 @@ const TransactionModal = ({ setIsModalVisible }: TransactionModalProps) => {
         </div>
 
         <form className="modal__form" onSubmit={handleSubmit}>
-          <label htmlFor="recipient-name">Recipient name</label>
+          <label htmlFor="recipient-name" className="modal__form-label">
+            Recipient name
+          </label>
           <input
             required
             className="modal__input"
@@ -72,7 +74,9 @@ const TransactionModal = ({ setIsModalVisible }: TransactionModalProps) => {
             onChange={handleChange}
           />
 
-          <label htmlFor="category">Category</label>
+          <label htmlFor="category" className="modal__form-label">
+            Category
+          </label>
           <input
             required
             className="modal__input"
@@ -82,7 +86,9 @@ const TransactionModal = ({ setIsModalVisible }: TransactionModalProps) => {
             onChange={handleChange}
           />
 
-          <label htmlFor="date">Date</label>
+          <label htmlFor="date" className="modal__form-label">
+            Date
+          </label>
           <input
             className="modal__input modal__input--date"
             type="date"
@@ -91,7 +97,9 @@ const TransactionModal = ({ setIsModalVisible }: TransactionModalProps) => {
             onChange={handleDateChange}
           />
 
-          <label htmlFor="amount">Amount</label>
+          <label htmlFor="amount" className="modal__form-label">
+            Amount
+          </label>
           <input
             required
             className="modal__input"

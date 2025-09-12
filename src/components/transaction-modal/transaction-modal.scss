@@ -31,6 +31,7 @@
   &__header {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 2rem;
 
     &-title {
       @include font(1.7rem, 120%, normal, $clr-grey-900, $ff-public, 700);
@@ -46,11 +47,6 @@
     &:hover {
       transform: scale(1.1);
     }
-
-    img {
-      width: 20px;
-      height: 20px;
-    }
   }
 
   &__form {
@@ -58,26 +54,24 @@
     margin-bottom: auto;
     display: flex;
     flex-direction: column;
+
+    &-label {
+      @include font($fs-xs, normal, normal, $clr-grey-400, $ff-public, 700);
+      margin-bottom: 0.25rem;
+    }
   }
 
   &__input {
     margin-bottom: 1rem;
-    padding: 0.3rem;
-    border-radius: 7px;
-
-    &--date {
-      // You can add custom styles for date input here if needed
-    }
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid $clr-grey-200;
+    @include font($fs-sm, 150%, normal, $clr-grey-900, $ff-public, 400);
   }
 
   &__submit-btn {
-    padding: 0.8rem;
-    color: white;
-    background-color: black;
-    border-radius: 10px;
-    font-family: $ff-public;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    cursor: pointer;
+    @include button-reset;
+    @include button($white, $clr-grey-900, 0.5rem, none, 1rem);
+    @include font($fs-sm, 150%, normal, $white, $ff-public, 700);
   }
 }

@@ -13,7 +13,7 @@
   }
 }
 &__category-title {
-  @include font(0.75rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+  @include font($fs-sm, 150%, normal, $clr-grey-400, $ff-public, 400);
 }
 // @include border-color(".budgets__category");
 

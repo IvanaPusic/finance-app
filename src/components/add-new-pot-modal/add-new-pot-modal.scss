@@ -29,7 +29,7 @@
     }
 
     &-info {
-      @include font(0.875rem, 150%, normal, $clr-grey-500, $ff-public, 400);
+      @include font(0.875rem, 150%, normal, $clr-grey-400, $ff-public, 400);
       padding-bottom: 1.25rem;
     }
 
@@ -58,18 +58,18 @@
       width: 100%;
 
       label {
-        @include font(0.75rem, 150%, normal, $clr-grey-500, $ff-public, 700);
+        @include font(0.75rem, 150%, normal, $clr-grey-400, $ff-public, 700);
       }
 
       input,
       select {
+        margin-bottom: 1rem;
         display: block;
         width: 100%;
         padding: 0.75rem 1.25rem;
-        outline: none;
-        @include font(0.875rem, 150%, normal, $clr-grey-500, $ff-public, 400);
         border-radius: 0.5rem;
-        border: 1px solid $clr-grey-500;
+        border: 1px solid $clr-grey-200;
+        @include font(0.875rem, 150%, normal, $clr-grey-500, $ff-public, 400);
       }
 
       #theme {

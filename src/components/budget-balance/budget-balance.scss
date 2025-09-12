@@ -9,14 +9,19 @@
   gap: 5rem;
   margin-top: 1rem;
 
-  &__spent {
+  &__spent,
+  &__remaining {
     width: 50%;
     display: flex;
     gap: 0.5rem;
+    &-title {
+      @include font($fs-xs, 150%, normal, $clr-grey-400, $ff-public, 400);
+    }
     &-info {
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      @include font($fs-sm, 150%, normal, $clr-grey-900, $ff-public, 700);
     }
     &-marker {
       width: 5px;
@@ -25,19 +30,8 @@
     }
   }
   &__remaining {
-    width: 50%;
-    display: flex;
-    gap: 0.5rem;
-    &-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
     &-marker {
-      width: 5px;
-      height: 100%;
       background-color: $clr-beige-100;
-      border-radius: 5px;
     }
   }
 }
