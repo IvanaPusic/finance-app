@@ -60,6 +60,9 @@
     }
     span {
       font-family: $ff-public;
+      @include breakpoint(small) {
+        display: none;
+      }
     }
   }
 
@@ -189,6 +192,13 @@
     align-items: center;
     gap: 0.75rem;
 
+    &-category {
+      display: inline-block;
+      width: 100%;
+      margin-inline: 0.5rem;
+      // display: none;
+    }
+
     img {
       width: 32px;
       height: 32px;
@@ -198,6 +208,9 @@
 
     span {
       @include font(0.875rem, 150%, normal, $clr-grey-900, $ff-public, 700);
+      // display: inline-block;
+      // width: 100%;
+      // margin-inline: 0.5rem;
     }
   }
 
@@ -214,7 +227,9 @@
   &__pagination {
     padding-top: 1.5rem;
     @include flex-between(0);
-
+    @include breakpoint(small) {
+      justify-content: center;
+    }
     &-list {
       @include flex-center(0.5rem);
     }
@@ -239,6 +254,12 @@
       }
     }
 
+    &-prev,
+    &-next {
+      @include breakpoint(small) {
+        display: none;
+      }
+    }
     &-list-btn {
       @include button-reset;
       @include button(

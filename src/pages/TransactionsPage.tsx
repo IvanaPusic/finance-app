@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { Sort, Transaction } from "../types";
 import { useGlobal } from "../contexts/GlobalContext";
 import sortByFilter from "../data/filteringData";
@@ -46,6 +46,10 @@ const TransactionsPage: React.FC = () => {
   const startIndex = (currentPage - 1) * transactionsPerPage;
   const endIndex = startIndex + transactionsPerPage;
   const paginatedTransactions = transactions.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    console.log("Paginated transactions", paginatedTransactions);
+  }, [paginatedTransactions]);
 
   return (
     <main className="transactions-page">

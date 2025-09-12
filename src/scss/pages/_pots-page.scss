@@ -13,8 +13,18 @@
       @include font(2rem, 120%, normal, $clr-grey-900, $ff-public, 700);
     }
     &-btn {
+      @include button-reset;
       @include button($white, $clr-grey-900, 0.5rem, none, 1rem);
       @include font(0.875rem, 150%, normal, $white, $ff-public, 700);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    &-btn-title {
+      @include breakpoint(small) {
+        display: none;
+      }
     }
   }
 

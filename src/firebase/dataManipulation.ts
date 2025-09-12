@@ -50,9 +50,9 @@ const updateFinancialDataArray = async <T>(
 
   const data = userSnap.data();
   const existingArray = data?.financialData?.[key] || [];
-
+  newItem = { ...newItem, id: crypto.randomUUID() };
   const updatedArray = [...existingArray, newItem];
-
+  console.log("New item", newItem);
   await updateDoc(userRef, {
     [`financialData.${key}`]: updatedArray,
   });

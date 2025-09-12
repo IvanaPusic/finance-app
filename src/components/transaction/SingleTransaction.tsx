@@ -19,7 +19,9 @@ const SingleTransaction = ({
         )}
         <span>{transaction.name}</span>
       </div>
-      <span>{transaction.category}</span>
+      <span className="transactions-page__user-category">
+        {transaction.category}
+      </span>
       <span>{formattedDate}</span>
       <span
         className={

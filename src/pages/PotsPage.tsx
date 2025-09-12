@@ -3,6 +3,7 @@ import { useGlobal } from "../contexts/GlobalContext";
 import { SinglePot } from "../components";
 import AddNewPotModal from "../components/add-new-pot-modal/AddNewPotModal";
 import AddToSavings from "../components/add-to-savings/AddToSavings";
+import plus from "../assets/svgs/plus-white.svg";
 
 const PotsPage: React.FC = () => {
   const {
@@ -22,9 +23,9 @@ const PotsPage: React.FC = () => {
     setIsNewPotModalOpen(false);
   };
 
-  const handleSavingsOpen = () => {
-    setIsAddToSavingsOpen(true);
-  };
+  // const handleSavingsOpen = () => {
+  //   setIsAddToSavingsOpen(true);
+  // };
 
   const handleSavingsClose = () => {
     setIsAddToSavingsOpen(false);
@@ -40,7 +41,8 @@ const PotsPage: React.FC = () => {
       <div className="pots-page__container">
         <h1 className="pots-page__container-title">Pots</h1>
         <button className="pots-page__container-btn" onClick={handleOpenModal}>
-          + Add New Pot
+          <img src={plus} alt="" />
+          <span className="pots-page__container-btn-title">Add New Pot</span>
         </button>
       </div>
       <div className="pots-page__info">

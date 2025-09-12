@@ -8,6 +8,7 @@ type Props = {
 
 const SinglePot = ({ pot }: Props) => {
   const { name, theme, target, total } = pot;
+  console.log("Single pot", pot);
   const [progressValue, setProgressValue] = useState(
     (((total || 0) / target) * 100).toFixed(2)
   );
@@ -43,10 +44,6 @@ const SinglePot = ({ pot }: Props) => {
           </p>
           <p className="pots-page__savings-info-target">Target of ${target}</p>
         </div>
-      </div>
-      <div className="pots-page__btn-container">
-        <button className="pots-page__btn-container-button">+ Add Money</button>
-        <button className="pots-page__btn-container-button">Withdraw</button>
       </div>
     </article>
   );

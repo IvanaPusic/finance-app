@@ -60,7 +60,13 @@ const LatestSpending = ({
                     {transaction.amount.toFixed(2)}$
                   </span>
                   <span className="latest-spending__transaction-date">
-                    {transaction.date.toDate().toLocaleDateString()}
+                    {transaction.date
+                      .toDate()
+                      .toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
                   </span>
                 </div>
               </div>

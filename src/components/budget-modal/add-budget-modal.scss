@@ -12,6 +12,7 @@
   border: 0.5px solid black;
   display: flex;
   flex-direction: column;
+
   &__overlay {
     background-color: rgba(0, 0, 0, 0.7);
     position: fixed;
@@ -25,27 +26,33 @@
     z-index: 2;
   }
 
+  &__info {
+    @include font($fs-sm, 150%, normal, $clr-grey-400, $ff-public, 400);
+    padding: 1.25rem 0;
+  }
+
   &__new-budget-form {
-    margin-top: auto;
-    margin-bottom: auto;
     display: flex;
     flex-direction: column;
   }
-  &__new-budget-input {
+
+  &__label {
+    @include font($fs-xs, 150%, normal, $clr-grey-400, $ff-public, 700);
+    padding-bottom: 0.25rem;
+  }
+
+  &__new-budget-input,
+  &__dropdown {
     margin-bottom: 1rem;
-    padding: 0.3rem;
-    border-radius: 7px;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid $clr-grey-200;
   }
 
   &__new-budget-button {
-    padding: 0.8rem;
-    color: white;
-    background-color: black;
-    border-radius: 10px;
-    font-family: $ff-public;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    cursor: pointer;
+    @include button-reset;
+    @include button($white, $clr-grey-900, 0.5rem, none, 1rem);
+    @include font($fs-sm, 150%, normal, $white, $ff-public, 700);
   }
   &__new-budget-title {
     @include font(1.7rem, 120%, normal, $clr-grey-900, $ff-public, 700);
@@ -63,11 +70,5 @@
     &:hover {
       transform: scale(1.1);
     }
-  }
-  &__dropdown {
-    margin-bottom: 1rem;
-    padding: 0.3rem;
-    border-radius: 7px;
-    border: 2px solid black;
   }
 }

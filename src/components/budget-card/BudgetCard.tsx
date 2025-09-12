@@ -83,7 +83,7 @@ const BudgetCard = ({
       </div>
 
       <div className="budget-card__maximum-container">
-        <span className="budget-card__maximum-text">Maximum of</span>
+        <span className="budget-card__maximum-text">Maximum of </span>
         <span className="budget-card__maximum-amount">
           ${budget.maximum.toFixed(2)}
         </span>

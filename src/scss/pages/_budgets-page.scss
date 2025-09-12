@@ -8,18 +8,21 @@
   width: 100%;
   &__title {
     @include font(2rem, 120%, normal, $clr-grey-900, $ff-public, 700);
-    padding-bottom: 1.973rem;
     &-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1rem;
+      padding-bottom: 1.973rem;
     }
   }
   &__main-container {
     display: flex;
     gap: 2rem;
     justify-content: center;
+    @include breakpoint(small) {
+      flex-direction: column;
+    }
   }
   &__budgets-container {
     display: flex;
@@ -44,6 +47,9 @@
     }
     span {
       font-family: $ff-public;
+      @include breakpoint(small) {
+        display: none;
+      }
     }
   }
 }
