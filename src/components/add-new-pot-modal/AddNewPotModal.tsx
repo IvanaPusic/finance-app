@@ -25,7 +25,6 @@ const AddNewPotModal = ({ handleCloseModal }: AddNewPotProps) => {
   ) => {
     const { name, value } = e.target;
 
-    console.log(`${name}: ${value}`);
     setPotData({
       ...potData,
       [name]: name === "target" ? +value : value,

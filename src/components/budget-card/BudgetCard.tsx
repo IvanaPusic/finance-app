@@ -50,7 +50,6 @@ const BudgetCard = ({
         >
           <button
             onClick={() => {
-              console.log("delete");
               deleteBudget(currentUid, budget.category);
             }}
             className="budget-card__delete-budget-button"

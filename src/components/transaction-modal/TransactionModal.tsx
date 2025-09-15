@@ -43,7 +43,6 @@ const TransactionModal = ({ setIsModalVisible }: TransactionModalProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
     setIsModalVisible(false);
     addTransaction(currentUid, formData);
   };

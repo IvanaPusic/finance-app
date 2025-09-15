@@ -8,11 +8,9 @@ type Props = {
 
 const SinglePot = ({ pot }: Props) => {
   const { name, theme, target, total } = pot;
-  console.log("Single pot", pot);
   const [progressValue, setProgressValue] = useState(
     (((total || 0) / target) * 100).toFixed(2)
   );
-  console.log(`${name}: ${progressValue}%`);
 
   return (
     <article className="pots-page__info-pot">

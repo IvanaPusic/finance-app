@@ -24,7 +24,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     income: 0,
     expenses: 0,
   });
-  // const [recuuringBills, setRecurringBills] = useState();
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [pots, setPots] = useState<Pot[]>([]);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -34,7 +33,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isNewPotModalOpen, setIsNewPotModalOpen] = useState<boolean>(false);
   const [isAddToSavingsOpen, setIsAddToSavingsOpen] = useState<boolean>(false);
   const [transactionInput, setTransactionInput] = useState<string>("");
-  // Initialize from localStorage safely (wrap JSON.parse in try-catch)
   const [allTransactions, setAllTransactions] = useState<Transaction[]>(() => {
     try {
       const saved = localStorage.getItem("transactions");
@@ -56,18 +54,12 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const [transactionsByCategory, setTransactionsByCategory] = useState<
     Record<string, Transaction[]>
   >({});
-  // Update pagination buttons length & buttons when allTransactions or transactionsPerPage change
+
   useEffect(() => {
     const length = Math.ceil(allTransactions.length / transactionsPerPage);
     setPaginationButtonsLength(length);
     setButtons(Array.from({ length }, (_, i) => i + 1));
   }, [allTransactions, transactionsPerPage]);
-
-  useEffect(() => {
-    console.log("budgets", budgets);
-    console.log("transactions", transactions.at(50));
-    // transactions.unshift(transactions.at(50))
-  }, [budgets, transactions]);
 
   useEffect(() => {
     if (!currentUid) return;
@@ -174,7 +166,6 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   const handleSortBySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSort = event.target.value;
     setSortBySelect(selectedSort);
-    console.log("Selected sort", selectedSort);
     if (selectedSort) {
       checkSelectedCategory(selectedSort as Category);
     } else {

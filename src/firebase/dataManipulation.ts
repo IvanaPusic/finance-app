@@ -6,11 +6,8 @@ export const getUserData = async (uid: string) => {
   const userDocRef = doc(db, "users", uid);
   const userSnapshot = await getDoc(userDocRef);
 
-  if (userSnapshot.exists()) {
-    console.log(userSnapshot.data());
-
-    return userSnapshot.data(); // typed as any, cast or validate as needed
-  } else {
+  if (userSnapshot.exists()) return userSnapshot.data();
+  else {
     return null;
   }
 };
@@ -37,7 +34,8 @@ export const updateFullFinancialData = async (
 const updateFinancialDataArray = async <T>(
   uid: string,
   key: "transactions" | "budgets" | "pots",
-  newItem: T
+  newItem: T,
+  options: { prepend?: boolean } = {}
 ) => {
   if (!uid) throw new Error("UID is required");
 
@@ -50,9 +48,13 @@ const updateFinancialDataArray = async <T>(
 
   const data = userSnap.data();
   const existingArray = data?.financialData?.[key] || [];
+
   newItem = { ...newItem, id: crypto.randomUUID() };
-  const updatedArray = [...existingArray, newItem];
-  console.log("New item", newItem);
+
+  const updatedArray = options.prepend
+    ? [newItem, ...existingArray]
+    : [...existingArray, newItem];
+
   await updateDoc(userRef, {
     [`financialData.${key}`]: updatedArray,
   });
@@ -60,17 +62,28 @@ const updateFinancialDataArray = async <T>(
 
 export const addTransaction = async (
   uid: string,
-  newTransaction: Transaction
+  newTransaction: Transaction,
+  prepend: boolean = true
 ) => {
-  return updateFinancialDataArray(uid, "transactions", newTransaction);
+  return updateFinancialDataArray(uid, "transactions", newTransaction, {
+    prepend,
+  });
 };
 
-export const addBudget = async (uid: string, newBudget: Budget) => {
-  return updateFinancialDataArray(uid, "budgets", newBudget);
+export const addBudget = async (
+  uid: string,
+  newBudget: Budget,
+  prepend: boolean = true
+) => {
+  return updateFinancialDataArray(uid, "budgets", newBudget, { prepend });
 };
 
-export const addPot = async (uid: string, newPot: Pot) => {
-  return updateFinancialDataArray(uid, "pots", newPot);
+export const addPot = async (
+  uid: string,
+  newPot: Pot,
+  prepend: boolean = true
+) => {
+  return updateFinancialDataArray(uid, "pots", newPot, { prepend });
 };
 
 export const deleteBudget = async (uid: string, categoryToRemove: string) => {

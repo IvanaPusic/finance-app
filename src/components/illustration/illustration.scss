@@ -6,6 +6,10 @@
 .illustration {
   position: relative;
   border-radius: 10px;
+  padding-top: 1.25rem;
+  @include breakpoint(small) {
+    display: none;
+  }
   &__image {
     border-radius: 10px;
   }
