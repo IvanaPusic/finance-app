@@ -12,6 +12,7 @@
   min-height: 100vh;
   z-index: 999;
   @include flex-center(0);
+
   &__container {
     background-color: $white;
     max-width: 560px;
@@ -36,6 +37,7 @@
     &-close-btn {
       @include button-reset;
     }
+
     &-form {
       @include flex-col(1rem);
 
