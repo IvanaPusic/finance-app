@@ -1,0 +1,26 @@
+@use "@/scss/abstracts/colors" as *;
+@use "@/scss/abstracts/fonts" as *;
+@use "@/scss/abstracts/mixins" as *;
+@use "@/scss/abstracts/spacings" as *;
+
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+
+  &__title {
+    @include font($fs-xl, 150%, normal, $clr-grey-900, 700);
+    padding-bottom: 1.5rem;
+  }
+
+  &__btn {
+    @include button-reset;
+    @include button($white, $clr-grey-900, 0.5rem, none, 1rem);
+    a {
+      @include font($fs-base, 150%, normal, $white, $ff-public, 700);
+      text-decoration: none;
+    }
+  }
+}

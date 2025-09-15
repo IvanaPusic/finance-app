@@ -50,14 +50,12 @@ const Transactions = ({ transactions, allTransactions }: Props) => {
               "en-GB",
               dateOptions
             );
-            console.log("formatted date: ", formattedDate);
 
             return (
               <OverviewTransaction
                 key={index}
                 transaction={transaction}
                 formattedDate={formattedDate}
-                transactionClass="transactions__transaction"
               />
             );
           })}

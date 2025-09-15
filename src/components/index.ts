@@ -1,9 +1,9 @@
 import Navigation from "./navigation/Navigation";
-import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./private-route/PrivateRoute";
 import StatCard from "./stat-card/StatCard";
 import Transactions from "./transactions/Transactions";
 import Budgets from "./budgets/Budgets";
-import RecurringBills from "./RecurringBills";
+import RecurringBills from "./recurring-bills/RecurringBills";
 import SinglePot from "./single-pot/SinglePot";
 
 export {

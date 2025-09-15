@@ -26,7 +26,6 @@ const AddBudgetModal = ({ setIsModalVisible }: AddBudgetModalProps) => {
       ...prev,
       [name]: name === "maximum" ? parseFloat(value) : value,
     }));
-    console.log("hadnleChange:", formData);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -34,8 +33,8 @@ const AddBudgetModal = ({ setIsModalVisible }: AddBudgetModalProps) => {
 
     setIsModalVisible(false);
     addBudget(currentUid, formData);
-    console.log("handleSubmit", formData);
   };
+
   return (
     <div
       className="add-budget-modal__overlay"

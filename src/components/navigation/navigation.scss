@@ -10,6 +10,10 @@
   padding-right: map-get($spacings, "300");
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  position: relative;
+  nav {
+    height: 85%;
+  }
 
   @include breakpoint(small) {
     position: fixed;
@@ -28,6 +32,9 @@
     padding-left: map-get($spacings, "400");
     width: 121.45px;
     height: 21.76px;
+    position: sticky;
+    top: 2rem;
+    align-self: flex-start;
 
     @include breakpoint(small) {
       display: none;
@@ -39,8 +46,11 @@
     flex-direction: column;
     align-items: flex-start;
     padding-top: 4rem;
-
+    position: sticky;
+    top: 2rem;
+    align-self: flex-start;
     @include breakpoint(small) {
+      position: static;
       flex-direction: row;
       padding: 0;
       justify-content: space-between;
@@ -134,7 +144,9 @@
     @include font($fs-base, 150%, normal, $clr-grey-300, $ff-public, 700);
     background-color: $clr-grey-900;
     border: 1px solid transparent;
-
+    position: absolute;
+    bottom: 2rem;
+    align-self: flex-start;
     &:hover {
       background-color: $clr-beige-100;
       border-left: 5px solid $green;

@@ -49,7 +49,6 @@ const Transactions = ({ transactions, allTransactions }: Props) => {
               "en-GB",
               dateOptions
             );
-            console.log("formatted date: ", formattedDate);
 
             return (
               <li key={index} className="transactions__transaction">

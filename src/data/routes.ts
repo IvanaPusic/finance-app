@@ -1,11 +1,9 @@
 import home from "../assets/svgs/home.png";
 import budgets from "../assets/svgs/budgets.png";
-import recurring from "../assets/svgs/recurring.png";
 import pots from "../assets/svgs/pots.png";
 import transactions from "../assets/svgs/transactions.png";
 import homeActive from "../assets/svgs/home-active.png";
 import budgetsActive from "../assets/svgs/budgets-active.png";
-import recurringActive from "../assets/svgs/recurring-active.png";
 import potsActive from "../assets/svgs/pots-active.png";
 import transactionsActive from "../assets/svgs/transactions-active.png";
 
@@ -40,11 +38,5 @@ export const routes: Route[] = [
     path: "/pots",
     icon: pots,
     iconActive: potsActive,
-  },
-  {
-    pathName: "Recurring Bills",
-    path: "/recurring-bills",
-    icon: recurring,
-    iconActive: recurringActive,
   },
 ];

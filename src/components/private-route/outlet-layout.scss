@@ -1,0 +1,15 @@
+@use "@/scss/abstracts/colors" as *;
+@use "@/scss/abstracts/fonts" as *;
+@use "@/scss/abstracts/mixins" as *;
+@use "@/scss/abstracts/spacings" as *;
+
+.outlet-layout {
+  display: flex;
+  flex-direction: row-reverse;
+  min-height: 100vh;
+  justify-content: flex-end;
+  @include breakpoint(small) {
+    position: relative;
+    padding-bottom: 80px;
+  }
+}

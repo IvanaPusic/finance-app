@@ -1,0 +1,10 @@
+@use "@/scss/abstracts/colors" as *;
+@use "@/scss/abstracts/fonts" as *;
+@use "@/scss/abstracts/mixins" as *;
+@use "@/scss/abstracts/spacings" as *;
+
+.page-wrapper {
+  background-color: $clr-beige-100;
+  min-height: 100vh;
+  font-family: $ff-public;
+}
