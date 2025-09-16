@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import type { Sort, Transaction } from "../../types";
 import { useGlobal } from "../../contexts/GlobalContext";
 import sortByFilter from "../../data/filteringData";
@@ -11,6 +11,7 @@ import { Timestamp } from "firebase/firestore";
 import TransactionModal from "../../components/transaction-modal/TransactionModal";
 import SingleTransaction from "../../components/transaction/SingleTransaction";
 import "./transactions-page.scss";
+import { useAuth } from "../../contexts/AuthContext";
 
 const TransactionsPage: React.FC = () => {
   const {
@@ -27,7 +28,7 @@ const TransactionsPage: React.FC = () => {
     transactionsPerPage,
     handleDisplayTransactions,
   } = useGlobal();
-
+  const { logOut } = useAuth();
   const [sortBy, setIsSortBy] = useState<Sort[]>(sortByFilter);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -47,6 +48,10 @@ const TransactionsPage: React.FC = () => {
   const endIndex = startIndex + transactionsPerPage;
   const paginatedTransactions = transactions.slice(startIndex, endIndex);
 
+  const logoutHandler = () => {
+    logOut();
+  };
+
   return (
     <main className="transactions-page">
       {isModalVisible && (
@@ -55,6 +60,12 @@ const TransactionsPage: React.FC = () => {
 
       <div className="transactions-page__title-container">
         <h1 className="transactions-page__title">Transactions</h1>
+        <button
+          className="transactions-page__logout-btn"
+          onClick={logoutHandler}
+        >
+          Logout
+        </button>
         <button
           onClick={() => setIsModalVisible(true)}
           className="transactions-page__add-transaction"

@@ -6,12 +6,52 @@
 .overview {
   padding: map-get($spacings, "400");
   width: 100%;
+
+  @include breakpoint(small) {
+    position: relative;
+  }
+
+  &__logout-btn {
+    display: none;
+
+    @include breakpoint(small) {
+      @include button-reset;
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+
+      @include button(
+        $white,
+        $clr-grey-900,
+        0.438rem,
+        1px solid transparent,
+        1rem
+      );
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+
+    @include breakpoint(medium) {
+      display: none;
+    }
+  }
+
   &__title {
     @include font(2rem, 120%, normal, $clr-grey-900, $ff-public, 700);
     padding-bottom: 1.973rem;
   }
+
   &__balance {
     @include flex-start(1.497rem);
+
     @include breakpoint(small) {
       flex-direction: column;
       justify-content: center;
@@ -33,6 +73,7 @@
       display: flex;
       flex-direction: column;
     }
+
     @include breakpoint(medium) {
       display: flex;
       flex-direction: column;

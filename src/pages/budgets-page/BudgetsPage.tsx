@@ -5,12 +5,16 @@ import BudgetCard from "../../components/budget-card/BudgetCard";
 import whitePlusIcon from "../../assets/svgs/plus-white.svg";
 import AddBudgetModal from "../../components/budget-modal/AddBudgetModal";
 import "./budgets-page.scss";
-
+import { useAuth } from "../../contexts/AuthContext";
 const BudgetsPage: React.FC = () => {
   const { budgets, transactionsByCategory } = useGlobal();
-
+  const { logOut } = useAuth();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  const logoutHandler = () => {
+    logOut();
+  };
 
   return (
     <main className="budgets-page">
@@ -20,6 +24,9 @@ const BudgetsPage: React.FC = () => {
 
       <div className="budgets-page__title-container">
         <h1 className="budgets-page__title">Budgets</h1>
+        <button className="budgets-page__logout-btn" onClick={logoutHandler}>
+          Logout
+        </button>
         <button
           onClick={() => {
             setIsModalVisible(true);
