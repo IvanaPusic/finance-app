@@ -22,9 +22,6 @@ const SinglePot = ({ pot }: Props) => {
           ></span>
           <span className="pots-page__info-pot-title">{name}</span>
         </h2>
-        <button className="pots-page__info-pot-breadcrumb">
-          <img src={breadcrumb} alt="" />
-        </button>
       </div>
       <div className="pots-page__savings">
         <div className="pots-page__savings-total">
