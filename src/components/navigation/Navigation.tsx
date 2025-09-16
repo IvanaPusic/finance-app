@@ -30,10 +30,10 @@ const Navigation = () => {
             </li>
           ))}
         </ul>
+        <button onClick={logOutHandler} className="header__logout">
+          Log out
+        </button>
       </nav>
-      <button onClick={logOutHandler} className="header__logout">
-        Log out
-      </button>
     </header>
   );
 };

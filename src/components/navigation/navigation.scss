@@ -23,7 +23,8 @@
     z-index: 999;
     right: 0;
     top: auto;
-    padding-top: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
     padding-inline: 1rem;
     border-radius: 0;
   }
@@ -71,6 +72,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border-bottom: 5px solid $clr-grey-900;
         padding: 0.5rem 0 0 0.75rem;
         border-left: 0;
       }
@@ -134,7 +136,8 @@
   }
 
   &__logout {
-    margin-top: 4rem;
+    @include button-reset;
+    // margin-top: 4rem;
     @include flex-start(map-get($spacings, "200"));
     padding-inline: map-get($spacings, "400");
     padding-top: map-get($spacings, "200");
@@ -144,8 +147,8 @@
     @include font($fs-base, 150%, normal, $clr-grey-300, $ff-public, 700);
     background-color: $clr-grey-900;
     border: 1px solid transparent;
-    position: absolute;
-    bottom: 2rem;
+    position: sticky;
+    top: 25rem;
     align-self: flex-start;
     &:hover {
       background-color: $clr-beige-100;

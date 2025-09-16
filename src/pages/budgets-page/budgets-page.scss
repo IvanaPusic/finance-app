@@ -6,6 +6,33 @@
 .budgets-page {
   padding: map-get($spacings, "400");
   width: 100%;
+  @include breakpoint(small) {
+    position: relative;
+  }
+  &__logout-btn {
+    @include breakpoint(small) {
+      @include button-reset;
+      @include button(
+        $white,
+        $clr-grey-900,
+        0.438rem,
+        1px solid transparent,
+        1rem
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+    display: none;
+    @include breakpoint(medium) {
+      display: none;
+    }
+  }
   &__title {
     @include font(2rem, 120%, normal, $clr-grey-900, $ff-public, 700);
     &-container {
@@ -33,19 +60,28 @@
   }
 
   &__add-budget {
+    @include button-reset;
+    @include button(
+      $white,
+      $clr-grey-900,
+      0.438rem,
+      1px solid transparent,
+      1rem
+    );
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid transparent;
-    border-radius: 7px;
-    background-color: black;
-    color: white;
-    padding: 0.3rem 0.5rem;
     gap: 0.5rem;
-    cursor: pointer;
     transition: all 0.3s ease;
     &:hover {
       transform: scale(1.03);
+    }
+    @include breakpoint(small) {
+      position: fixed;
+      bottom: 5rem;
+      right: 1rem;
+      border-radius: 100%;
     }
     span {
       font-family: $ff-public;
